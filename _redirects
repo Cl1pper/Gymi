@@ -1,0 +1,7 @@
+# Relais vers Open Food Facts.
+# Le navigateur n'appelle que ton propre domaine : Netlify va chercher
+# la réponse côté serveur, donc aucun blocage CORS possible.
+# Les paramètres d'URL sont transmis automatiquement sur un statut 200.
+
+/off/*   https://world.openfoodfacts.org/:splat    200
+/offs/*  https://search.openfoodfacts.org/:splat   200
