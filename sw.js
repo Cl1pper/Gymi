@@ -11,7 +11,7 @@
    La version précédente était cache-d'abord pour tout, ce qui bloquait
    les mises à jour pendant un ou deux lancements. Corrigé ici.
    ========================================================================== */
-var CACHE = 'luka-gym-v7';
+var CACHE = 'luka-gym-v8';
 
 self.addEventListener('install', function(){
   self.skipWaiting();
@@ -38,6 +38,8 @@ self.addEventListener('fetch', function(e){
 
   /* Open Food Facts : données vivantes, jamais mises en cache */
   if(req.url.indexOf('openfoodfacts.org') > -1) return;
+  /* WorkoutX : l'app gère son propre cache (quota de 500 requêtes/mois) */
+  if(req.url.indexOf('workoutxapp.com') > -1) return;
 
   /* --- la page elle-même : réseau d'abord --- */
   if(req.mode === 'navigate' || (req.destination === 'document')){
@@ -46,8 +48,13 @@ self.addEventListener('fetch', function(e){
         if(res && res.status === 200){
           var copy = res.clone();
           caches.open(CACHE).then(function(c){ c.put(req, copy); });
+          return res;
         }
-        return res;
+        /* hébergeur en panne, en pause ou quota dépassé : on continue
+           de servir l'app mise en cache plutôt que sa page d'erreur */
+        return caches.match(req).then(function(hit){
+          return hit || caches.match('index.html') || caches.match('./') || res;
+        });
       }).catch(function(){
         return caches.match(req).then(function(hit){
           return hit || caches.match('index.html') || caches.match('./');

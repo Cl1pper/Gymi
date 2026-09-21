@@ -1,6 +1,6 @@
 # 70 → 76 — Coach de musculation et de nutrition
 
-Version **7.0** · application web installable (PWA) · 100 % hors ligne · aucune donnée envoyée.
+Version **8.0** · application web installable (PWA) · 100 % hors ligne · aucune donnée envoyée.
 
 ## Contenu du dossier
 
@@ -16,9 +16,16 @@ Les trois fichiers sont indispensables.
 
 1. Netlify → ton site → onglet **Deploys** → glisser ce dossier dans la zone de dépôt.
 2. Sur l'iPhone : fermer complètement l'app puis la rouvrir.
-3. Vérifier dans Réglages : « Version 7.0 ».
+3. Vérifier dans Réglages : « Version 8.0 ».
 
 Toujours redéployer sur le **même site** : l'adresse conserve les données.
+
+## Nouveautés de la 8.0
+
+- **Programme automatique** — après le profil, un récap animé montre la semaine (full body, haut/bas ou push/pull/legs selon le nombre de séances) et une journée de repas adaptée à l'objectif. Un geste l'active : le bouton START suit ensuite le programme.
+- **Journée type** dans l'onglet Manger, qui change avec le profil.
+- **WorkoutX** — vraies démonstrations en GIF et catalogue de plus de 1 400 exercices à ajouter aux séances. La clé se saisit dans les Réglages et reste sur le téléphone ; elle n'est ni dans le code publié ni dans les sauvegardes.
+- **Hébergement en pause** — si l'hébergeur coupe le site, l'app installée continue de s'ouvrir depuis son cache.
 
 ## Nouveautés de la 7.0
 
@@ -44,3 +51,4 @@ Toujours redéployer sur le **même site** : l'adresse conserve les données.
 - Taux de gras estimé à partir de l'IMC s'il n'est pas renseigné : approximatif chez les personnes musclées.
 - L'impact glycémique est une estimation, pas une mesure.
 - Pas de scan de code-barres par caméra (non supporté par Safari).
+- WorkoutX gratuit : 500 requêtes par mois, GIF en 180 px avec filigrane. Les correspondances et les GIF sont mis en cache pour économiser le quota.
