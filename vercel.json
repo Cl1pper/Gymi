@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/analyze-plate.js": { "maxDuration": 60 }
+  },
+  "rewrites": [
+    { "source": "/off/:path*",  "destination": "https://world.openfoodfacts.org/:path*" },
+    { "source": "/offs/:path*", "destination": "https://search.openfoodfacts.org/:path*" }
+  ],
+  "headers": [
+    { "source": "/sw.js", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] }
+  ]
+}
