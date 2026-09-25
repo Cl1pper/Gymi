@@ -11,7 +11,7 @@
    La version précédente était cache-d'abord pour tout, ce qui bloquait
    les mises à jour pendant un ou deux lancements. Corrigé ici.
    ========================================================================== */
-var CACHE = 'luka-gym-v14-vercel';
+var CACHE = 'luka-gym-v16-gemini';
 
 self.addEventListener('install', function(){
   self.skipWaiting();

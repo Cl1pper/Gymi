@@ -2,8 +2,5 @@
   "name": "luka-70-76",
   "private": true,
   "type": "module",
-  "description": "PWA 70 → 76 — fonction Vercel pour l'analyse photo des assiettes",
-  "dependencies": {
-    "@anthropic-ai/sdk": "latest"
-  }
+  "description": "PWA 70 → 76 — la fonction api/analyze-plate.js appelle Gemini, sans dépendance"
 }

@@ -5,29 +5,27 @@
     index.html            l'app
     sw.js                 cache hors ligne
     vercel.json           relais Open Food Facts (/off, /offs) + délai de la fonction photo
-    package.json          dépendance du SDK Anthropic
-    api/analyze-plate.js  fonction serveur du scan d'assiette
+    package.json          configuration du projet (aucune dépendance à installer)
+    api/analyze-plate.js  fonction serveur du scan d'assiette (Google Gemini, gratuit)
 
-Tout doit être à la **racine** du projet Vercel. Le dossier `api/` y est détecté automatiquement.
+Tout doit être à la **racine** du dépôt GitHub.
 
-## Variables d'environnement (une seule fois)
+## Clé Gemini gratuite (une seule fois)
+
+1. Va sur https://aistudio.google.com avec ton compte Google
+2. Clique « Get API key » puis « Create API key »
+3. Copie la clé (elle commence par AIza…)
+
+Aucune carte bancaire. L'offre gratuite limite le nombre d'analyses par minute
+et par jour : largement assez pour tes repas. En contrepartie, Google peut
+utiliser les photos envoyées pour améliorer ses modèles.
+
+## Variables d'environnement
 
 Vercel → ton projet → Settings → Environment Variables :
 
-- `ANTHROPIC_API_KEY` = ta clé (https://console.anthropic.com)
-- `PLATE_SCAN_KEY` = un code de ton choix (optionnel, mais conseillé : sans lui,
-  quiconque trouve l'URL peut utiliser ton crédit). L'app le demande au premier scan.
+- `GEMINI_API_KEY` = la clé AIza…
+- `PLATE_SCAN_KEY` = ton code d'accès (optionnel, conseillé)
 
-Les variables ne sont prises en compte qu'au **déploiement suivant** : redéploie après les avoir ajoutées.
-
-## Déployer
-
-Par GitHub : remplace les fichiers du dépôt par ceux-ci, commit, push. Vercel redéploie seul.
-
-Ou en ligne de commande, depuis ce dossier :
-
-    npx vercel --prod
-
-## Coût
-
-Une analyse = environ 3 à 7 centimes avec Claude Opus 5.
+Puis Deployments → ⋯ sur le dernier → Redeploy.
+Si tu avais mis `ANTHROPIC_API_KEY`, tu peux la supprimer : elle ne sert plus.

@@ -1,54 +1,53 @@
 /* ==========================================================================
    Analyse photo d'une assiette → aliments, grammes, macros.
+   Version gratuite : Google Gemini (offre gratuite, sans carte bancaire).
 
    Le téléphone envoie une photo déjà réduite (≤ 1280 px, JPEG) et la liste
-   des noms de sa bibliothèque locale. Claude identifie chaque composant,
+   des noms de sa bibliothèque locale. Gemini identifie chaque composant,
    estime la portion et, quand un aliment correspond à la bibliothèque,
-   renvoie son nom exact : l'app utilise alors ses propres valeurs vérifiées
-   plutôt que l'estimation.
+   renvoie son nom exact : l'app utilise alors ses propres valeurs vérifiées.
 
    Variables d'environnement Vercel (Settings → Environment Variables) :
-     ANTHROPIC_API_KEY  (obligatoire)
-     PLATE_SCAN_KEY     (optionnelle) — si définie, l'app doit envoyer la même
-                        valeur dans l'en-tête x-scan-key. Évite qu'un inconnu
-                        qui trouve l'URL consomme ton crédit API.
+     GEMINI_API_KEY   (obligatoire) — clé gratuite sur aistudio.google.com
+     PLATE_SCAN_KEY   (optionnelle) — si définie, l'app doit envoyer la même
+                      valeur dans l'en-tête x-scan-key.
+     GEMINI_MODEL     (optionnelle) — pour forcer un autre modèle.
    ========================================================================== */
-import Anthropic from "@anthropic-ai/sdk";
-
 
 const MAX_IMAGE_B64 = 4_000_000; /* ~3 Mo d'image, sous la limite Vercel de 4,5 Mo par requête */
 const MEDIA_TYPES = ["image/jpeg", "image/png", "image/webp"];
+/* Le premier modèle qui répond est utilisé ; le second sert de secours
+   si Google retire ou renomme le premier. Les deux sont gratuits. */
+const MODELS = [process.env.GEMINI_MODEL, "gemini-3.8-flash", "gemini-2.5-flash"].filter(Boolean);
 
 const SCHEMA = {
-  type: "object",
-  additionalProperties: false,
+  type: "OBJECT",
   required: ["is_food", "dish", "items", "note"],
   properties: {
-    is_food: { type: "boolean" },
-    dish: { type: "string" },
-    note: { type: "string" },
+    is_food: { type: "BOOLEAN" },
+    dish: { type: "STRING" },
+    note: { type: "STRING" },
     items: {
-      type: "array",
+      type: "ARRAY",
       items: {
-        type: "object",
-        additionalProperties: false,
+        type: "OBJECT",
         required: ["name", "library_match", "grams", "kcal_100g", "protein_100g",
                    "fat_100g", "carbs_100g", "confidence", "excluded"],
         properties: {
-          name: { type: "string" },
-          library_match: { type: "string" },
-          grams: { type: "number" },
-          kcal_100g: { type: "number" },
-          protein_100g: { type: "number" },
-          fat_100g: { type: "number" },
-          carbs_100g: { type: "number" },
-          confidence: { type: "string", enum: ["haute", "moyenne", "basse"] },
-          excluded: { type: "boolean" }
+          name: { type: "STRING" },
+          library_match: { type: "STRING" },
+          grams: { type: "NUMBER" },
+          kcal_100g: { type: "NUMBER" },
+          protein_100g: { type: "NUMBER" },
+          fat_100g: { type: "NUMBER" },
+          carbs_100g: { type: "NUMBER" },
+          confidence: { type: "STRING", enum: ["haute", "moyenne", "basse"] },
+          excluded: { type: "BOOLEAN" }
         }
       }
     }
   }
-}
+};
 
 const SYSTEM = `Tu estimes le contenu nutritionnel d'une assiette à partir d'une photo, pour une app de prise de masse utilisée en France.
 
@@ -66,16 +65,25 @@ dish : nom du plat en quelques mots.
 note : une ou deux phrases utiles au plus (ce qui rend l'estimation incertaine, calories cachées probables). Chaîne vide si rien à signaler.
 Si la photo ne montre pas de nourriture, is_food = false et items vide.`;
 
+async function callGemini(model, key, body) {
+  const r = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+    { method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": key }, body: JSON.stringify(body) }
+  );
+  let j = null;
+  try { j = await r.json(); } catch { /* corps vide ou non JSON */ }
+  return { status: r.status, j };
+}
 
 export default async function handler(req, res) {
   const json = (status, out) => { res.setHeader("cache-control", "no-store"); res.status(status).json(out); };
   if (req.method !== "POST") return json(405, { error: "method" });
 
-  if (!process.env.ANTHROPIC_API_KEY) return json(500, { error: "no_api_key" });
+  const key = process.env.GEMINI_API_KEY;
+  if (!key) return json(500, { error: "no_api_key" });
 
   const lock = process.env.PLATE_SCAN_KEY;
   if (lock && req.headers["x-scan-key"] !== lock) return json(401, { error: "scan_key" });
-
 
   let body = req.body;
   if (typeof body === "string") { try { body = JSON.parse(body); } catch { body = null; } }
@@ -96,42 +104,43 @@ export default async function handler(req, res) {
     (hint ? `\n\nPrécision de l'utilisateur sur ce repas : ${hint}` : "") +
     "\n\nAnalyse l'assiette de la photo.";
 
-  const client = new Anthropic();
+  const request = {
+    systemInstruction: { parts: [{ text: SYSTEM }] },
+    contents: [{ role: "user", parts: [
+      { inline_data: { mime_type: mediaType, data: image } },
+      { text }
+    ] }],
+    generationConfig: { responseMimeType: "application/json", responseSchema: SCHEMA, temperature: 0.2 }
+  };
 
   try {
-    const response = await client.beta.messages.create({
-      model: "claude-opus-5",
-      max_tokens: 8000,
-      thinking: { type: "adaptive" },
-      output_config: {
-        effort: "medium",
-        format: { type: "json_schema", schema: SCHEMA }
-      },
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
-      system: SYSTEM,
-      messages: [{
-        role: "user",
-        content: [
-          { type: "image", source: { type: "base64", media_type: mediaType, data: image } },
-          { type: "text", text }
-        ]
-      }]
-    });
+    let r = null;
+    for (const model of MODELS) {
+      r = await callGemini(model, key, request);
+      if (r.status !== 404) break;               /* modèle inconnu : on essaie le suivant */
+    }
+    const err = r.j && r.j.error;
+    if (r.status === 429) return json(429, { error: "rate" });
+    if (r.status === 400 && err && /API key/i.test(err.message || "")) return json(500, { error: "bad_api_key" });
+    if (r.status === 401 || r.status === 403) return json(500, { error: "bad_api_key" });
+    if (r.status !== 200) {
+      console.error("Gemini", r.status, err && err.message);
+      return json(502, { error: "api", status: r.status });
+    }
 
-    if (response.stop_reason === "refusal") return json(422, { error: "refusal" });
-    if (response.stop_reason === "max_tokens") return json(502, { error: "truncated" });
+    if (r.j.promptFeedback && r.j.promptFeedback.blockReason) return json(422, { error: "refusal" });
+    const cand = r.j.candidates && r.j.candidates[0];
+    if (!cand) return json(502, { error: "empty" });
+    if (cand.finishReason === "SAFETY") return json(422, { error: "refusal" });
+    if (cand.finishReason === "MAX_TOKENS") return json(502, { error: "truncated" });
 
-    const out = response.content.find((b) => b.type === "text");
+    const out = ((cand.content && cand.content.parts) || []).map((p) => p.text || "").join("")
+      .replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, "");
     if (!out) return json(502, { error: "empty" });
-
-    return json(200, JSON.parse(out.text));
-  } catch (err) {
-    if (err instanceof Anthropic.RateLimitError) return json(429, { error: "rate" });
-    if (err instanceof Anthropic.AuthenticationError) return json(500, { error: "bad_api_key" });
-    if (err instanceof Anthropic.APIError) return json(502, { error: "api", status: err.status });
-    if (err instanceof SyntaxError) return json(502, { error: "parse" });
-    console.error(err);
+    return json(200, JSON.parse(out));
+  } catch (e) {
+    if (e instanceof SyntaxError) return json(502, { error: "parse" });
+    console.error(e);
     return json(500, { error: "server" });
   }
 }

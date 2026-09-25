@@ -800,7 +800,7 @@ input,select,textarea{ font-size:max(16px,1em); }
       <div class="f"><label>Taille (cm)</label><input id="obHeight" inputmode="numeric" value="175"></div>
       <div class="f"><label>Âge</label><input id="obAge" inputmode="numeric" value="25"></div>
     </div>
-    <div class="f"><label>Type d’entraînement</label><select id="obTraining"><option value="targeted">Ciblage · haut / bas</option><option value="fullbody">Full body · corps entier</option></select></div>
+    <div class="f"><label>Programme</label><select id="obTraining"><option value="targeted">Ciblage · haut / bas</option><option value="fullbody">Full body · corps entier</option></select></div>
     <div class="f"><label>Objectif principal</label><select id="obMode"><option value="gain">Prendre du muscle</option><option value="maintain">Maintenir</option><option value="cut">Perdre du poids</option><option value="performance">Performance</option></select></div>
     <button class="btn btn--gold" id="obGo">Commencer</button>
   </div>
@@ -954,151 +954,14 @@ input,select,textarea{ font-size:max(16px,1em); }
 
   <!-- ==================== VIEW: PLAN ==================== -->
   <main class="view" id="vPlan" hidden>
-    <div class="card card--gold">
-      <div class="card__h">La semaine</div>
-      <div class="card__s" style="margin-top:6px">
-        <b style="color:var(--ink)">Lun</b> Haut A · <b style="color:var(--ink)">Mar</b> Bas A ·
-        <b style="color:var(--red)">Mer</b> MMA · <b style="color:var(--ink)">Jeu</b> repos ·
-        <b style="color:var(--ink)">Ven</b> Haut B · <b style="color:var(--ink)">Sam</b> Bas B ·
-        <b style="color:var(--ink)">Dim</b> repos
-      </div>
-      <div class="note" style="margin-bottom:0">
-        Le MMA est au milieu de semaine avec un jour de repos derrière, et volontairement loin du Bas B — traîneau et sauts le lendemain d'un soulevé de terre lourd, c'est comme ça qu'on se blesse.
-      </div>
-    </div>
+    <div class="note tg-only" style="margin-top:0">Le MMA est au milieu de semaine avec un jour de repos derrière, et volontairement loin du Bas B — traîneau et sauts le lendemain d'un soulevé de terre lourd, c'est comme ça qu'on se blesse.</div>
 
     <div class="h-sec">Les séances</div>
     <div id="planSessions"></div>
 
-    <div class="h-sec">Journée MMA</div>
-    <div id="planMMA"></div>
+    <div class="h-sec mma-only">Journée MMA</div>
+    <div id="planMMA" class="mma-only"></div>
 
-    <div class="h-sec">Exécution — tempo 3·1·1·0</div>
-    <p class="card__s" style="margin:0 0 12px">Les animations tournent au vrai tempo : 3 s de descente, 1 s en position étirée, 1 s pour remonter. Cale-toi dessus.</p>
-
-    <div class="demo-grid">
-      <!-- ---------- SQUAT ---------- -->
-      <div class="demo-card">
-        <h4>Squat</h4>
-        <div class="demo">
-          <svg viewBox="0 0 200 200" role="img" aria-label="Animation du squat au tempo 3-1-1-0, trajectoire de barre verticale au-dessus du milieu du pied.">
-            <line x1="14" y1="182" x2="186" y2="182" stroke="#232A3D" stroke-width="2.5"/>
-            <line x1="100" y1="26" x2="100" y2="182" stroke="#FFC53D" stroke-width="1.2" stroke-dasharray="4 5" opacity=".55"/>
-            <circle r="11" fill="#EEF2FF">
-              <animate attributeName="cx" values="100;94;94;100" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="cy" values="62;82;82;62" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-            </circle>
-            <polyline fill="none" stroke="#EEF2FF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-              <animate attributeName="points"
-                values="100,75 100,112 100,146 100,182 ; 96,95 113,140 88,151 100,182 ; 96,95 113,140 88,151 100,182 ; 100,75 100,112 100,146 100,182"
-                keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-            </polyline>
-            <line stroke="#FF3B5C" stroke-width="7" stroke-linecap="round">
-              <animate attributeName="x1" values="76;72;72;76" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="x2" values="124;120;120;124" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="y1" values="80;100;100;80" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="y2" values="80;100;100;80" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-            </line>
-          </svg>
-        </div>
-        <ul>
-          <li>Barre à l'aplomb du milieu du pied</li>
-          <li>Gainage <b>avant</b> de descendre</li>
-          <li>Genoux qui avancent, pas juste les fesses en arrière</li>
-        </ul>
-      </div>
-
-      <!-- ---------- RDL ---------- -->
-      <div class="demo-card">
-        <h4>Soulevé de terre roumain</h4>
-        <div class="demo">
-          <svg viewBox="0 0 200 200" role="img" aria-label="Animation du soulevé de terre roumain : charnière de hanche, dos plat, barre qui frôle les jambes.">
-            <line x1="14" y1="182" x2="186" y2="182" stroke="#232A3D" stroke-width="2.5"/>
-            <circle r="11" fill="#EEF2FF">
-              <animate attributeName="cx" values="100;74;74;100" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="cy" values="50;90;90;50" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-            </circle>
-            <polyline fill="none" stroke="#EEF2FF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-              <animate attributeName="points"
-                values="100,66 100,116 100,150 100,182 ; 82,97 120,120 114,152 100,182 ; 82,97 120,120 114,152 100,182 ; 100,66 100,116 100,150 100,182"
-                keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-            </polyline>
-            <line stroke="#FF3B5C" stroke-width="7" stroke-linecap="round">
-              <animate attributeName="x1" values="78;76;76;78" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="x2" values="122;120;120;122" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="y1" values="118;154;154;118" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="y2" values="118;154;154;118" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-            </line>
-          </svg>
-        </div>
-        <ul>
-          <li>Charnière, pas un squat — hanches en arrière</li>
-          <li>La barre <b>frôle les jambes</b> tout du long</li>
-          <li>Stop dès que le dos s'arrondirait</li>
-        </ul>
-      </div>
-
-      <!-- ---------- DÉVELOPPÉ COUCHÉ ---------- -->
-      <div class="demo-card">
-        <h4>Développé couché</h4>
-        <div class="demo">
-          <svg viewBox="0 0 200 200" role="img" aria-label="Animation du développé couché : coudes à 45 degrés, trajectoire de barre en léger arc.">
-            <rect x="46" y="112" width="118" height="10" rx="4" fill="#2E3650"/>
-            <rect x="62" y="122" width="7" height="42" fill="#2E3650"/>
-            <rect x="146" y="122" width="7" height="42" fill="#2E3650"/>
-            <line x1="14" y1="166" x2="186" y2="166" stroke="#232A3D" stroke-width="2.5"/>
-            <circle cx="60" cy="100" r="10.5" fill="#EEF2FF"/>
-            <polyline points="70,104 140,108 156,138 144,166" fill="none" stroke="#EEF2FF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-            <polyline fill="none" stroke="#EEF2FF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-              <animate attributeName="points"
-                values="96,102 92,72 90,48 ; 96,102 118,100 100,78 ; 96,102 118,100 100,78 ; 96,102 92,72 90,48"
-                keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-            </polyline>
-            <line stroke="#FF3B5C" stroke-width="7" stroke-linecap="round">
-              <animate attributeName="x1" values="68;78;78;68" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="x2" values="112;122;122;112" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="y1" values="48;78;78;48" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="y2" values="48;78;78;48" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-            </line>
-          </svg>
-        </div>
-        <ul>
-          <li>Omoplates <b>serrées et basses</b> avant de désarmer</li>
-          <li>Coudes à 45°, pas écartés à 90</li>
-          <li>Pieds qui poussent dans le sol</li>
-        </ul>
-      </div>
-
-      <!-- ---------- ROWING ---------- -->
-      <div class="demo-card">
-        <h4>Rowing buste appuyé</h4>
-        <div class="demo">
-          <svg viewBox="0 0 200 200" role="img" aria-label="Animation du rowing buste appuyé : étirement complet en bas, coude qui dépasse les côtes en haut.">
-            <line x1="14" y1="182" x2="186" y2="182" stroke="#232A3D" stroke-width="2.5"/>
-            <line x1="74" y1="182" x2="118" y2="72" stroke="#2E3650" stroke-width="15" stroke-linecap="round"/>
-            <line x1="66" y1="182" x2="130" y2="182" stroke="#2E3650" stroke-width="7" stroke-linecap="round"/>
-            <circle cx="124" cy="60" r="11" fill="#EEF2FF"/>
-            <polyline points="118,72 84,158 76,182" fill="none" stroke="#EEF2FF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-            <polyline fill="none" stroke="#EEF2FF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-              <animate attributeName="points"
-                values="112,84 148,88 122,116 ; 110,84 136,142 142,166 ; 110,84 136,142 142,166 ; 112,84 148,88 122,116"
-                keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-            </polyline>
-            <line stroke="#FF3B5C" stroke-width="7" stroke-linecap="round">
-              <animate attributeName="x1" values="106;126;126;106" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="x2" values="140;160;160;140" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="y1" values="122;172;172;122" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-              <animate attributeName="y2" values="112;162;162;112" keyTimes="0;.6;.8;1" dur="5s" repeatCount="indefinite"/>
-            </line>
-          </svg>
-        </div>
-        <ul>
-          <li>Laisse <b>voyager l'omoplate</b> — étirement complet en bas</li>
-          <li>Le coude passe derrière les côtes</li>
-          <li>Le buste ne décolle jamais du support</li>
-        </ul>
-      </div>
-    </div>
 
     <div class="h-sec">Outils</div>
     <div class="card">
@@ -1239,7 +1102,7 @@ var memFallback=null;
 
 var DEFAULTS={
   v:3,
-  profile:{ bw:70, height:175, age:25, act:1.45, surplus:.10, proPerKg:2.0, start:70, goal:76, training:'targeted' },
+  profile:{ bw:70, height:175, age:25, act:1.45, surplus:.10, proPerKg:2.0, start:70, goal:76, training:'targeted', equip:'salle' },
   prefs:{ rest:120, sound:true, wake:true, demos:true, scanKey:"" },
   weights:[],      /* {d,kg} */
   sessions:[],     /* {key,date,ts,sets,won,prs,dur} */
@@ -1253,7 +1116,8 @@ var DEFAULTS={
   water:{},        /* date -> millilitres */
   dailyNotes:{},   /* date -> texte */
   fridge:[],       /* ce que tu as coché dans « Frigo vide » */
-  mealLog:[]        /* historique détaillé des repas */
+  mealLog:[],       /* historique détaillé des repas */
+  swaps:{}          /* remplacements d'exercices : 'séance|index' -> nom */
 };
 
 function load(){
@@ -2698,7 +2562,7 @@ $('#btnSettings').addEventListener('click',function(){
     + '<div class="f"><label for="sPro">Protéines</label><select id="sPro">'
     +   opt(1.8,'1,8 g/kg',p.proPerKg)+opt(2.0,'2,0 g/kg — le bon compromis',p.proPerKg)+opt(2.2,'2,2 g/kg',p.proPerKg)
     + '</select></div>'
-    + '<div class="f"><label for="sTraining">Type d’entraînement</label><select id="sTraining"><option value="targeted"'+(p.training!=='fullbody'?' selected':'')+'>Ciblage · haut / bas</option><option value="fullbody"'+(p.training==='fullbody'?' selected':'')+'>Full body · corps entier</option></select></div>'
+    + '<div class="f"><label for="sTraining">Programme</label><select id="sTraining">'+progOptions(p.training)+'</select></div>'
     + '<div class="f"><label for="sRest">Repos entre séries</label><select id="sRest">'
     +   opt(90,'90 secondes',pr.rest)+opt(120,'2 minutes',pr.rest)+opt(180,'3 minutes',pr.rest)+opt(240,'4 minutes',pr.rest)
     + '</select></div>'
@@ -2985,7 +2849,7 @@ function offAdd(i){
 /* ==========================================================================
    16b. SCAN D'ASSIETTE (photo → aliments + grammes)
    La photo est réduite sur le téléphone puis envoyée à la fonction Vercel
-   /api/analyze-plate, qui interroge Claude. Quand un aliment reconnu existe
+   /api/analyze-plate, qui interroge Gemini (offre gratuite). Quand un aliment reconnu existe
    dans la bibliothèque, on garde les valeurs locales (vérifiées) ; sinon on
    utilise l'estimation. Rien n'est ajouté sans validation : tu corriges les
    grammes, puis « Ajouter à l'assiette ».
@@ -3064,8 +2928,8 @@ function scanRun(){
     if(st===401) return scanAskKey();
     var msg =
         st===404 ? '<b>La fonction d’analyse n’est pas déployée.</b> Vérifie que le dossier <b>api/</b> et le fichier <b>package.json</b> sont bien à la racine du projet Vercel, puis redéploie.'
-      : err==='no_api_key'||err==='bad_api_key' ? '<b>Clé API manquante ou invalide.</b> Renseigne <b>ANTHROPIC_API_KEY</b> dans les variables d’environnement du projet Vercel (Settings → Environment Variables), puis redéploie.'
-      : st===429 ? '<b>Trop de requêtes.</b> Réessaie dans une minute.'
+      : err==='no_api_key'||err==='bad_api_key' ? '<b>Clé API manquante ou invalide.</b> Renseigne <b>GEMINI_API_KEY</b> (clé gratuite sur aistudio.google.com) dans les variables d’environnement du projet Vercel, puis redéploie.'
+      : st===429 ? '<b>Limite gratuite atteinte.</b> L’offre gratuite de Gemini limite le nombre d’analyses par minute et par jour. Réessaie dans une minute, ou demain si ça persiste.'
       : st===422 ? '<b>Analyse refusée pour cette photo.</b> Essaie avec une autre prise de vue.'
       : (e&&e.name==='AbortError') ? '<b>L’analyse a pris trop de temps.</b> Réessaie, idéalement avec une bonne connexion.'
       : '<b>L’analyse n’a pas abouti.</b> Réessaie dans un moment.';
@@ -4416,7 +4280,7 @@ function v9ExerciseLibrary(){var el=$('#v9ExerciseLibrary');if(!el)return;el.inn
 function v9Mount(){
   if(!$('#v9SessionHistory')){var p=$('#vProgress');if(p)p.insertAdjacentHTML('beforeend','<div class="h-sec">Historique des séances</div><div class="card" id="v9SessionHistory"></div>');}
   if(!$('#v9FoodHistory')){var f=$('#vFuel');if(f)f.insertAdjacentHTML('beforeend','<div class="h-sec">Historique alimentaire</div><div class="card" id="v9FoodHistory"></div>');}
-  if(!$('#v9ExerciseLibrary')){var pl=$('#vPlan');if(pl)pl.insertAdjacentHTML('beforeend','<div class="h-sec">Bibliothèque d’exercices</div><div class="card__s" style="margin:-2px 2px 10px">24 mouvements supplémentaires · touche un exercice pour voir son exécution.</div><div id="v9ExerciseLibrary"></div>');}
+  if(!$('#v9ExerciseLibrary')){var pl=$('#vPlan');if(pl)pl.insertAdjacentHTML('beforeend','<div class="h-sec">Bibliothèque d’exercices</div><div class="card__s" style="margin:-2px 2px 10px">Tous les mouvements du catalogue · touche un exercice pour voir son exécution et ses variantes.</div><div id="v9ExerciseLibrary"></div>');}
   v9SessionHistory();v9FoodHistory();v9ExerciseLibrary();
 }
 var _rf9=renderFuel;renderFuel=function(){_rf9();v9FoodHistory();};
@@ -4486,36 +4350,929 @@ var fuel=document.getElementById('vFuel'),search=document.createElement('button'
 })();
 
 
-/* Programme au choix : le même stockage des séries et records est conservé. */
-SESSIONS.fba={label:'FULL BODY A',sub:'squat · poussée · tirage',pill:'u',lifts:[
- ['Squat barre','3 × 6–8','Commence léger et garde une bonne amplitude'],
- ['Développé couché','3 × 6–10','Contrôle la descente'],
- ['Rowing buste appuyé','3 × 8–12','Tire les coudes vers l’arrière'],
- ['Soulevé de terre roumain','2 × 8–10','Charnière de hanche, dos stable'],
- ['Élévation latérale haltères','2 × 12–15','Sans élan'],
- ['Crunch à la poulie','2 × 12–15','Respire et contrôle']
-]};
-SESSIONS.fbb={label:'FULL BODY B',sub:'charnière · épaules · dos',pill:'l',lifts:[
- ['Soulevé de terre roumain','3 × 6–8','Charge modérée, technique propre'],
- ['Développé épaules assis','3 × 8–10','Garde le tronc stable'],
- ['Tirage vertical prise large','3 × 8–12','Épaules basses'],
- ['Fente bulgare','2 × 8–10/jambe','Commence sans charge si besoin'],
- ['Extension triceps poulie haute','2 × 10–12','Coudes fixes'],
- ['Curl barre EZ','2 × 10–12','Descente lente']
-]};
-SESSIONS.fbc={label:'FULL BODY C',sub:'jambes · haut du corps',pill:'u',lifts:[
+/* ==========================================================================
+   V11 — ANIMATIONS ARTICULÉES
+   Un vrai squelette : chaque membre a une longueur fixe et tourne autour
+   de son articulation. Une pose = des angles, pas des coordonnées, donc
+   les bras et les jambes ne s'étirent plus pendant le mouvement.
+
+   Angles en degrés. Membres : 0 = vers le bas, 90 = vers l'avant (droite),
+   180 = vers le haut, -90 = vers l'arrière. Buste : 0 = droit,
+   90 = penché à l'horizontale vers l'avant, -90 = allongé tête en arrière.
+   Une pose s'ancre sur une articulation (cheville par défaut) : c'est ce
+   qui garde les pieds au sol pendant un squat.
+   ========================================================================== */
+var RG={T:44,N:14,HR:8.5,U:25,F:23,H:37,S:35,FT:13,Y:178};
+function rgD(a){ a*=Math.PI/180; return [Math.sin(a),Math.cos(a)]; }
+function rgTd(t){ t*=Math.PI/180; return [Math.sin(t),-Math.cos(t)]; }
+function rgAdd(p,d,l){ return [p[0]+d[0]*l,p[1]+d[1]*l]; }
+function rgLerp(a,b,v){ return a+(b-a)*v; }
+
+/* pose complète, angles absolus, prête à interpoler */
+function rgNorm(p){
+  var t=p.t||0, q={ t:t, h:p.h||0, front:!!p.front, anc:p.anc||{an:[100,RG.Y]} };
+  var ua=p.ar?[p.ar[0]-t,p.ar[1]-t]:(p.ua||[0,0]);
+  var fa=p.far?[p.far[0]-t,p.far[1]-t]:(p.fa||p.uaL||ua);
+  var l=p.l||[0,0,90], fl=p.fl||p.lL||l;
+  q.ua=[ua[0],ua[1]]; q.fa=[fa[0],fa[1]];
+  q.l=[l[0],l[1],l[2]==null?90:l[2]]; q.fl=[fl[0],fl[1],fl[2]==null?90:fl[2]];
+  return q;
+}
+function rgSolve(q){
+  var J={t:q.t}, hp=[0,0];
+  J.hp=hp;
+  if(q.front){
+    /* vue de face : côté droit = « proche », côté gauche = miroir */
+    var s=function(d){ return [-d[0],d[1]]; };
+    J.shR=[15,-RG.T]; J.shL=[-15,-RG.T]; J.sh=[0,-RG.T]; J.hd=[0,-RG.T-RG.N];
+    J.hpR=[7,0]; J.hpL=[-7,0];
+    J.el=rgAdd(J.shR,rgD(q.ua[0]),RG.U); J.wr=rgAdd(J.el,rgD(q.ua[1]),RG.F);
+    J.fel=rgAdd(J.shL,s(rgD(q.fa[0])),RG.U); J.fwr=rgAdd(J.fel,s(rgD(q.fa[1])),RG.F);
+    J.kn=rgAdd(J.hpR,rgD(q.l[0]),RG.H); J.an=rgAdd(J.kn,rgD(q.l[1]),RG.S); J.to=rgAdd(J.an,[1,0],7);
+    J.fkn=rgAdd(J.hpL,s(rgD(q.fl[0])),RG.H); J.fan=rgAdd(J.fkn,s(rgD(q.fl[1])),RG.S); J.fto=rgAdd(J.fan,[-1,0],7);
+  }else{
+    J.kn=rgAdd(hp,rgD(q.l[0]),RG.H); J.an=rgAdd(J.kn,rgD(q.l[1]),RG.S); J.to=rgAdd(J.an,rgD(q.l[2]),RG.FT);
+    J.fkn=rgAdd(hp,rgD(q.fl[0]),RG.H); J.fan=rgAdd(J.fkn,rgD(q.fl[1]),RG.S); J.fto=rgAdd(J.fan,rgD(q.fl[2]),RG.FT);
+    J.sh=rgAdd(hp,rgTd(q.t),RG.T); J.hd=rgAdd(J.sh,rgTd(q.t+q.h),RG.N);
+    J.el=rgAdd(J.sh,rgD(q.ua[0]),RG.U); J.wr=rgAdd(J.el,rgD(q.ua[1]),RG.F);
+    J.fel=rgAdd(J.sh,rgD(q.fa[0]),RG.U); J.fwr=rgAdd(J.fel,rgD(q.fa[1]),RG.F);
+  }
+  var k=Object.keys(q.anc)[0], tg=q.anc[k], ref=J[k]||J.an, dx=tg[0]-ref[0], dy=tg[1]-ref[1];
+  Object.keys(J).forEach(function(n){ if(n!=='t') J[n]=[J[n][0]+dx,J[n][1]+dy]; });
+  return J;
+}
+function rgMix(A,B,v){
+  var q={ t:rgLerp(A.t,B.t,v), h:rgLerp(A.h,B.h,v), front:A.front };
+  ['ua','fa','l','fl'].forEach(function(n){ q[n]=A[n].map(function(x,i){ return rgLerp(x,B[n][i],v); }); });
+  var ka=Object.keys(A.anc)[0], kb=Object.keys(B.anc)[0];
+  if(ka===kb) q.anc={}, q.anc[ka]=[rgLerp(A.anc[ka][0],B.anc[kb][0],v),rgLerp(A.anc[ka][1],B.anc[kb][1],v)];
+  else{ var ha=rgSolve(A).hp, hb=rgSolve(B).hp; q.anc={hp:[rgLerp(ha[0],hb[0],v),rgLerp(ha[1],hb[1],v)]}; }
+  return q;
+}
+
+/* ---------- matériel, dessiné à partir des articulations ---------- */
+function rgPt(J,at){
+  if(Array.isArray(at)) return at;
+  if(at==='back'){ var d=rgTd(J.t), n=[-Math.cos(J.t*Math.PI/180),-Math.sin(J.t*Math.PI/180)];
+    return [J.sh[0]-d[0]*3+n[0]*7,J.sh[1]-d[1]*3+n[1]*7]; }
+  if(at==='front'){ var n2=[Math.cos(J.t*Math.PI/180),Math.sin(J.t*Math.PI/180)];
+    return [J.sh[0]+n2[0]*8,J.sh[1]+n2[1]*8-2]; }
+  return J[at||'wr'];
+}
+function rgEquip(J,e,out){
+  var p, w=J.wr;
+  switch(e.k){
+    case 'bar': p=rgPt(J,e.at||'wr');
+      out.push({t:'c',c:'eq',r:e.r||15,p:p},{t:'c',c:'eqf',r:3.2,p:p}); break;
+    case 'db': (e.at?[e.at]:['wr','fwr']).forEach(function(a){
+      var q=J[a]; out.push({t:'l',c:'eqs',w:4,p:[q[0]-7,q[1],q[0]+7,q[1]]},{t:'c',c:'eqf',r:5,p:[q[0]-7,q[1]]},{t:'c',c:'eqf',r:5,p:[q[0]+7,q[1]]}); }); break;
+    case 'kb': (e.at?[e.at]:['wr']).forEach(function(a){
+      var q=J[a]; out.push({t:'c',c:'eqo',r:4,p:[q[0],q[1]+1]},{t:'c',c:'eqf',r:7.5,p:[q[0],q[1]+10]}); }); break;
+    case 'mb': p=J[e.at||'wr']; out.push({t:'c',c:'eqb',r:9.5,p:[p[0]+3,p[1]]}); break;
+    case 'plate': p=rgPt(J,e.at||'wr'); out.push({t:'c',c:'eq',r:e.r||11,p:p}); break;
+    case 'pad': p=J[e.at||'an']; out.push({t:'c',c:'eqf',r:e.r||6,p:p}); break;
+    case 'wheel': out.push({t:'c',c:'eqo',r:9,p:[w[0],w[1]+2]},{t:'c',c:'eqf',r:2.5,p:[w[0],w[1]+2]}); break;
+    case 'cable': out.push({t:'l',c:'cb',w:1.6,p:[e.from[0],e.from[1],w[0],w[1]]},{t:'c',c:'eqf',r:3.5,p:w}); break;
+    case 'band': (e.pairs||[['an','wr']]).forEach(function(pr){ var a=J[pr[0]],b=J[pr[1]];
+      out.push({t:'l',c:'bd',w:2.2,p:[a[0],a[1],b[0],b[1]]}); }); break;
+    case 'landmine': out.push({t:'l',c:'eqs',w:4.5,p:[e.from[0],e.from[1],w[0],w[1]]},{t:'c',c:'eq',r:9,p:[w[0],w[1]]}); break;
+    case 'towel': out.push({t:'l',c:'tw',w:4,p:[w[0],e.y,w[0],w[1]]}); break;
+    case 'latbar': out.push({t:'l',c:'cb',w:1.6,p:[e.from[0],e.from[1],w[0],w[1]]},{t:'l',c:'eqs',w:4,p:[w[0]-16,w[1],w[0]+16,w[1]]}); break;
+    case 'sled': out.push({t:'r',c:'eqf2',p:[w[0]+2,146,34,32]},{t:'l',c:'eqs',w:3,p:[w[0],w[1],w[0]+8,w[1]]}); break;
+    case 'chain': p=J.hd; out.push({t:'l',c:'cb',w:1.6,p:[p[0],p[1]+6,p[0],p[1]+34]},{t:'c',c:'eq',r:8,p:[p[0],p[1]+40]}); break;
+    case 'stick': var a=J.fwr, b=J.wr, dx=b[0]-a[0], dy=b[1]-a[1], L=Math.sqrt(dx*dx+dy*dy)||1;
+      out.push({t:'l',c:'eqs',w:3.5,p:[a[0]-dx/L*12,a[1]-dy/L*12,b[0]+dx/L*12,b[1]+dy/L*12]}); break;
+    case 'foot': var an=J.an, to=J.to, ux=to[0]-an[0], uy=to[1]-an[1], m=Math.sqrt(ux*ux+uy*uy)||1;
+      out.push({t:'l',c:'eqs',w:5,p:[an[0]-ux/m*10,an[1]-uy/m*10,to[0]+ux/m*8,to[1]+uy/m*8]}); break;
+    case 'pinch': out.push({t:'r',c:'eqf2',p:[w[0]-7,w[1]-4,5,26]},{t:'r',c:'eqf2',p:[w[0]+2,w[1]-4,5,26]}); break;
+    case 'rope': var fw=J.fwr; out.push({t:'p',c:'rp',d:'M'+w[0].toFixed(1)+' '+w[1].toFixed(1)+' C'+(w[0]+26).toFixed(1)+' 196 '+(fw[0]-26).toFixed(1)+' 196 '+fw[0].toFixed(1)+' '+fw[1].toFixed(1)}); break;
+  }
+}
+
+/* ---------- liste des primitives d'une pose ---------- */
+function rgPrims(J,def,cls){
+  var o=[], f='f'+(cls||''), n='n'+(cls||'');
+  var L=function(a,b,c,w){ o.push({t:'l',c:c,w:w,p:[a[0],a[1],b[0],b[1]]}); };
+  /* barre sur le dos ou les épaules : dessinée derrière, sinon elle cache la tête */
+  var eqs=cls?[]:(def.eq||[]), back=function(e){ return e.at==='back'||e.at==='front'; };
+  eqs.filter(back).forEach(function(e){ rgEquip(J,e,o); });
+  if(def.v==='front'){
+    L(J.hpL,J.fkn,n,9); L(J.fkn,J.fan,n,8); L(J.fan,J.fto,n,5);
+    L(J.hpR,J.kn,n,9);  L(J.kn,J.an,n,8);   L(J.an,J.to,n,5);
+    L(J.shL,J.shR,n,9); L(J.sh,J.hp,n,15);  L(J.hpL,J.hpR,n,10);
+    o.push({t:'c',c:'hd'+(cls||''),r:RG.HR,p:J.hd});
+    L(J.shL,J.fel,n,7); L(J.fel,J.fwr,n,6);
+    L(J.shR,J.el,n,7);  L(J.el,J.wr,n,6);
+  }else{
+    L(J.hp,J.fkn,f,9); L(J.fkn,J.fan,f,8); L(J.fan,J.fto,f,5);
+    L(J.sh,J.fel,f,7); L(J.fel,J.fwr,f,6);
+    L(J.hp,J.sh,n,13);
+    o.push({t:'c',c:'hd'+(cls||''),r:RG.HR,p:J.hd});
+    L(J.hp,J.kn,n,9); L(J.kn,J.an,n,8); L(J.an,J.to,n,5);
+    L(J.sh,J.el,n,7); L(J.el,J.wr,n,6);
+  }
+  eqs.filter(function(e){ return !back(e); }).forEach(function(e){ rgEquip(J,e,o); });
+  return o;
+}
+function rgPrimSvg(p,i){
+  var a=p.p, idx=i==null?'':' data-i="'+i+'"';
+  if(p.t==='l') return '<line'+idx+' class="'+p.c+'" stroke-width="'+p.w+'" x1="'+a[0].toFixed(1)+'" y1="'+a[1].toFixed(1)+'" x2="'+a[2].toFixed(1)+'" y2="'+a[3].toFixed(1)+'"/>';
+  if(p.t==='c') return '<circle'+idx+' class="'+p.c+'" r="'+p.r+'" cx="'+a[0].toFixed(1)+'" cy="'+a[1].toFixed(1)+'"/>';
+  if(p.t==='r') return '<rect'+idx+' class="'+p.c+'" rx="3" x="'+a[0].toFixed(1)+'" y="'+a[1].toFixed(1)+'" width="'+a[2]+'" height="'+a[3]+'"/>';
+  return '<path'+idx+' class="'+p.c+'" d="'+p.d+'"/>';
+}
+function rgApply(el,p){
+  var a=p.p;
+  if(p.t==='l'){ el.setAttribute('x1',a[0].toFixed(1)); el.setAttribute('y1',a[1].toFixed(1)); el.setAttribute('x2',a[2].toFixed(1)); el.setAttribute('y2',a[3].toFixed(1)); }
+  else if(p.t==='c'){ el.setAttribute('cx',a[0].toFixed(1)); el.setAttribute('cy',a[1].toFixed(1)); }
+  else if(p.t==='r'){ el.setAttribute('x',a[0].toFixed(1)); el.setAttribute('y',a[1].toFixed(1)); }
+  else el.setAttribute('d',p.d);
+}
+
+/* ---------- tempo : quelle fraction du mouvement à l'instant t ---------- */
+var RG_TEMPO={
+  s:{ T:5.4, lab:'Tempo 3·1·1 — 3 s de retenue, 1 s de pause, 1 s d’effort' },
+  p:{ T:2.6, lab:'Explosif — armer calmement, puis tout donner' },
+  c:{ T:1.3, lab:'Rythme continu' },
+  i:{ T:3.2, lab:'Tenue isométrique — tu respires, tu ne bouges pas' }
+};
+function rgEase(x){ return x<=0?0:x>=1?1:.5-.5*Math.cos(Math.PI*x); }
+function rgAt(def,sec){
+  var tp=def.tp||'s', x=sec%RG_TEMPO[tp].T;
+  if(tp==='s'){
+    if(x<3) return {u:rgEase(x/3),ph:'RETENUE · 3 S'};
+    if(x<4) return {u:1,ph:'PAUSE · 1 S'};
+    if(x<5) return {u:1-rgEase(x-4),ph:'EFFORT · 1 S'};
+    return {u:0,ph:'VERROUILLÉ'};
+  }
+  if(tp==='p'){
+    if(x<1) return {u:rgEase(x),ph:'ARMER'};
+    if(x<1.25) return {u:1,ph:'ARMER'};
+    if(x<1.7) return {u:1,e:rgEase((x-1.25)/.45),ph:'EXPLOSIF'};
+    return {u:0,ph:'RÉCEPTION'};
+  }
+  if(tp==='c') return {u:.5-.5*Math.cos(2*Math.PI*x/RG_TEMPO.c.T),ph:'CONTINU'};
+  return {u:.1*(.5-.5*Math.cos(2*Math.PI*x/RG_TEMPO.i.T)),ph:'TENUE'};
+}
+function rgPoseAt(def,st){
+  var K=def._n||(def._n=def.k.map(rgNorm));
+  if(st.e!=null){                                   /* phase explosive : k1 → (mi) → k0 */
+    if(K[2]) return st.e<.5?rgMix(K[1],K[2],st.e*2):rgMix(K[2],K[0],(st.e-.5)*2);
+    return rgMix(K[1],K[0],st.e);
+  }
+  return rgMix(K[0],K[1],st.u);
+}
+
+/* ---------- construction du SVG ---------- */
+function rgSvg(name,big){
+  var ex=EXC[name]; if(!ex) return '';
+  var def=POSES[ex.pose]; if(!def) return '';
+  var K=def._n||(def._n=def.k.map(rgNorm));
+  var J0=rgSolve(K[0]);
+  var o=['<line class="fl" x1="6" y1="182" x2="194" y2="182"/>'];
+  if(def.sc) o.push(def.sc);
+  if(big&&def.g) o.push('<line class="gd" x1="'+def.g+'" y1="20" x2="'+def.g+'" y2="182"/>');
+  if(big){
+    /* fantôme de l'autre extrémité du mouvement + trajectoire de la charge */
+    o.push('<g class="gh">'+rgPrims(rgSolve(K[1]),def,'g').map(function(p){ return rgPrimSvg(p); }).join('')+'</g>');
+    var tr=def.eq&&def.eq[0]&&(def.eq[0].k==='bar'||def.eq[0].k==='db'||def.eq[0].k==='kb'||def.eq[0].k==='mb')?(def.eq[0].at||'wr'):null;
+    if(tr&&tr!=='back'&&tr!=='front'){
+      var pts=[]; for(var s=0;s<=12;s++){ var q=rgSolve(rgMix(K[0],K[1],s/12)); pts.push(q[tr][0].toFixed(1)+','+q[tr][1].toFixed(1)); }
+      o.push('<polyline class="tr" points="'+pts.join(' ')+'"/>');
+    }
+  }
+  o.push(rgPrims(J0,def).map(rgPrimSvg).join(''));
+  if(big) o.push('<text class="rg-ph" x="10" y="16"></text>');
+  return '<svg class="rg" viewBox="0 0 200 200" role="img" aria-label="Exécution de '+esc(name)+'" data-rig="'+esc(name)+'"'+(big?' data-big="1"':'')+'>'+o.join('')+'</svg>';
+}
+
+/* ---------- boucle d'animation : seulement les figures visibles ---------- */
+var rgVis=new Set(), rgIO=null, rgRun=false;
+function rgTick(now){
+  var sec=now/1000;
+  rgVis.forEach(function(svg){
+    if(!svg.isConnected){ rgVis.delete(svg); return; }
+    var ex=EXC[svg.getAttribute('data-rig')], def=ex&&POSES[ex.pose]; if(!def) return;
+    var st=rgAt(def,sec), prims=rgPrims(rgSolve(rgPoseAt(def,st)),def);
+    var els=svg.__els||(svg.__els=svg.querySelectorAll('[data-i]'));
+    for(var i=0;i<els.length&&i<prims.length;i++) rgApply(els[i],prims[i]);
+    if(svg.__ph!==st.ph){ svg.__ph=st.ph; var t=svg.querySelector('.rg-ph'); if(t) t.textContent=st.ph; }
+  });
+  if(rgVis.size) requestAnimationFrame(rgTick); else rgRun=false;
+}
+function rgWatch(root){
+  if(!rgIO) return;
+  (root.querySelectorAll?root:document).querySelectorAll('svg[data-rig]').forEach(function(s){ if(!s.__obs){ s.__obs=1; rgIO.observe(s); } });
+}
+/* Les démos tournent même avec « réduire les animations » : le mouvement est
+   le contenu lui-même, pas une décoration. */
+if(window.IntersectionObserver){
+  rgIO=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) rgVis.add(e.target); else rgVis.delete(e.target); });
+    if(rgVis.size&&!rgRun&&!document.hidden){ rgRun=true; requestAnimationFrame(rgTick); }
+  });
+  new MutationObserver(function(ms){
+    ms.forEach(function(m){ m.addedNodes.forEach(function(n){ if(n.nodeType===1) rgWatch(n.matches&&n.matches('svg[data-rig]')?n.parentNode:n); }); });
+  }).observe(document.body,{childList:true,subtree:true});
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden&&rgVis.size&&!rgRun){ rgRun=true; requestAnimationFrame(rgTick); } });
+}
+/* ---------- décor ---------- */
+function scBench(x1,x2,y){ return '<rect class="scf" x="'+x1+'" y="'+y+'" width="'+(x2-x1)+'" height="7" rx="3"/>'
+  +'<line class="sc" x1="'+(x1+9)+'" y1="'+(y+7)+'" x2="'+(x1+9)+'" y2="181"/><line class="sc" x1="'+(x2-9)+'" y1="'+(y+7)+'" x2="'+(x2-9)+'" y2="181"/>'; }
+function scPad(x1,y1,x2,y2){ return '<line class="sc sc--pad" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'"/>'; }
+function scPost(x,y){ return '<line class="sc" x1="'+x+'" y1="'+y+'" x2="'+x+'" y2="181"/>'; }
+function scBar(y,x1,x2){ return '<line class="sc sc--bar" x1="'+(x1||55)+'" y1="'+y+'" x2="'+(x2||150)+'" y2="'+y+'"/>'; }
+function scBox(x1,x2,y){ return '<rect class="scf" x="'+x1+'" y="'+y+'" width="'+(x2-x1)+'" height="'+(182-y)+'" rx="3"/>'; }
+function scTower(x){ return '<rect class="scf" x="'+(x-5)+'" y="8" width="10" height="174" rx="3"/>'; }
+
+var BENCH=scBench(38,146,140), BEAM=scBar(22);
+var POSES={
+/* ======================= JAMBES : SQUAT ======================= */
+squat:{ g:106, eq:[{k:'bar',at:'back',r:14}],
+  k:[{t:4,ar:[-20,170]},{t:42,ar:[-20,170],l:[88,-38,90]}]},
+frontsquat:{ g:104, eq:[{k:'bar',at:'front',r:14}],
+  k:[{t:2,ar:[92,250]},{t:18,ar:[92,250],l:[98,-46,90]}]},
+goblet:{ eq:[{k:'kb',at:'wr'}],
+  k:[{t:3,ar:[14,166]},{t:22,ar:[14,166],l:[98,-44,90]}]},
+bwsquat:{
+  k:[{t:2,ua:[88,88]},{t:28,ua:[88,88],l:[96,-42,90]}]},
+hack:{ sc:scPad(70,176,108,40)+scBox(96,160,176), eq:[{k:'pad',at:'sh',r:5}],
+  k:[{t:-16,ar:[-15,165],l:[14,6,90],anc:{an:[126,172]}},{t:-16,ar:[-15,165],l:[100,-28,90],anc:{an:[126,172]}}]},
+legpress:{ sc:scPad(20,168,62,118)+scBox(30,72,150), eq:[{k:'foot'}],
+  k:[{t:-58,ua:[25,70],l:[128,128,218],anc:{hp:[62,146]}},{t:-58,ua:[25,70],l:[174,62,152],anc:{hp:[62,146]}}]},
+sissy:{
+  k:[{t:0,ua:[80,80]},{t:-50,ua:[100,100],l:[55,-45,40]}]},
+/* ======================= JAMBES : FENTES ======================= */
+bulgare:{ sc:scBench(10,58,146), eq:[{k:'db'}],
+  k:[{t:6,l:[10,-6,90],fl:[-20,-95,-90],anc:{an:[84,178]}},{t:14,l:[80,-24,90],fl:[-2,-153,-90],anc:{an:[84,178]}}]},
+lunge:{ eq:[{k:'db'}],
+  k:[{t:2,l:[4,-2,90],fl:[-4,-2,90],anc:{an:[100,178]}},{t:6,l:[86,-12,90],fl:[-14,-95,160],anc:{an:[100,178]}}]},
+bwlunge:{
+  k:[{t:2,ua:[30,30],l:[4,-2,90],fl:[-4,-2,90],anc:{an:[100,178]}},{t:6,ua:[30,30],l:[86,-12,90],fl:[-14,-95,160],anc:{an:[100,178]}}]},
+stepup:{ sc:scBox(96,156,146), eq:[{k:'db'}],
+  k:[{t:2,l:[0,0,90],fl:[4,-18,90],anc:{an:[118,144]}},{t:18,l:[92,-22,90],fl:[-8,-4,90],anc:{an:[118,144]}}]},
+/* ======================= CHARNIÈRE ======================= */
+rdl:{ g:104, eq:[{k:'bar'}],
+  k:[{t:0},{t:72,ua:[-15,-15],l:[34,0,90]}]},
+rdldb:{ eq:[{k:'db'}],
+  k:[{t:0},{t:72,ua:[-12,-12],l:[34,0,90]}]},
+deadlift:{ g:104, eq:[{k:'bar'}],
+  k:[{t:0},{t:56,ua:[-6,-6],l:[70,-24,90]}]},
+sumo:{ g:104, eq:[{k:'bar'}],
+  k:[{t:0},{t:40,ua:[0,0],l:[78,-14,90]}]},
+goodmorning:{ eq:[{k:'bar',at:'back',r:14}],
+  k:[{t:3,ar:[-20,170]},{t:76,ar:[-20,170],l:[24,0,90]}]},
+hipthrust:{ sc:scBench(8,62,139), eq:[{k:'bar',at:'hp',r:14}],
+  k:[{t:-90,ua:[62,118],l:[75,0,90],anc:{sh:[58,133]}},{t:-60,ua:[40,112],l:[118,12,90],anc:{sh:[58,133]}}]},
+bridge:{
+  k:[{t:-120,ua:[90,90],l:[100,-30,90],anc:{sh:[72,175]}},{t:-90,ua:[90,90],l:[150,-10,90],anc:{sh:[72,175]}}]},
+kbswing:{ tp:'p', eq:[{k:'kb'}],
+  k:[{t:0,ua:[88,88]},{t:62,ua:[-28,-28],l:[34,-8,90]}]},
+/* ======================= PUISSANCE ======================= */
+clean:{ tp:'p', eq:[{k:'bar'}],
+  k:[{t:6,ar:[92,250],l:[26,-18,90]},{t:34,ua:[-6,-6],l:[28,-12,90]},{t:-4,ua:[18,18],l:[-4,4,40],anc:{to:[112,181]}}]},
+mbthrow:{ tp:'p', eq:[{k:'mb'}],
+  k:[{t:6,ua:[96,96],l:[16,-10,90],fl:[-26,-24,60]},{t:16,ua:[-38,-12],l:[26,-16,90],fl:[-18,-24,90]}]},
+mbslam:{ tp:'p', eq:[{k:'mb'}],
+  k:[{t:62,ua:[32,32],l:[50,-24,90]},{t:-6,ua:[172,172],l:[0,0,70],anc:{to:[112,181]}}]},
+broadjump:{ tp:'p',
+  k:[{t:28,ua:[70,70],l:[72,-26,90],anc:{an:[148,178]}},{t:40,ua:[-45,-45],l:[72,-28,90],anc:{an:[62,178]}},{t:8,ua:[150,150],l:[30,10,50],anc:{hp:[106,74]}}]},
+boxjump:{ tp:'p', sc:scBox(118,176,136),
+  k:[{t:24,ua:[62,62],l:[78,-26,90],anc:{an:[140,134]}},{t:40,ua:[-45,-45],l:[72,-28,90],anc:{an:[76,178]}},{t:6,ua:[160,160],l:[88,-36,70],anc:{hp:[110,76]}}]},
+burpee:{ tp:'p',
+  k:[{t:0,ua:[176,176],anc:{an:[100,172]}},{t:84,ua:[-108,38],l:[-84,-84,-25],anc:{wr:[128,178]}},{t:36,ua:[20,20],l:[102,-40,90]}]},
+/* ======================= POUSSÉE HORIZONTALE ======================= */
+bench:{ sc:BENCH, g:0, eq:[{k:'bar'}],
+  k:[{t:-90,ua:[180,180],l:[75,-5,90],anc:{hp:[120,133]}},{t:-90,ua:[46,180],l:[75,-5,90],anc:{hp:[120,133]}}]},
+benchdb:{ sc:BENCH, eq:[{k:'db'}],
+  k:[{t:-90,ua:[180,180],l:[75,-5,90],anc:{hp:[120,133]}},{t:-90,ua:[40,176],l:[75,-5,90],anc:{hp:[120,133]}}]},
+incline:{ sc:scPad(58,78,112,140)+scPost(112,140), eq:[{k:'bar'}],
+  k:[{t:-58,ua:[172,172],l:[80,-6,90],anc:{hp:[116,136]}},{t:-58,ua:[58,176],l:[80,-6,90],anc:{hp:[116,136]}}]},
+inclinedb:{ sc:scPad(58,78,112,140)+scPost(112,140), eq:[{k:'db'}],
+  k:[{t:-58,ua:[172,172],l:[80,-6,90],anc:{hp:[116,136]}},{t:-58,ua:[52,172],l:[80,-6,90],anc:{hp:[116,136]}}]},
+machine:{ sc:scPad(60,146,66,80)+scBox(56,100,146), eq:[{k:'pad',at:'wr',r:4.5}],
+  k:[{t:-4,ua:[92,92],l:[90,0,90],anc:{hp:[74,142]}},{t:-4,ua:[-52,92],l:[90,0,90],anc:{hp:[74,142]}}]},
+dips:{ sc:scBar(92,70,140)+scPost(76,92)+scPost(134,92),
+  k:[{t:8,ua:[0,0],l:[14,-62,30],anc:{wr:[104,92]}},{t:26,ua:[-96,34],l:[26,-58,30],anc:{wr:[104,92]}}]},
+pushup:{
+  k:[{t:77,ua:[2,2],l:[-77,-77,-25],anc:{wr:[140,178]}},{t:85,ua:[-112,40],l:[-85,-85,-25],anc:{wr:[140,178]}}]},
+wpushup:{ eq:[{k:'plate',at:'back',r:12}],
+  k:[{t:77,ua:[2,2],l:[-77,-77,-25],anc:{wr:[140,178]}},{t:85,ua:[-112,40],l:[-85,-85,-25],anc:{wr:[140,178]}}]},
+/* ======================= POUSSÉE VERTICALE ======================= */
+ohpseat:{ sc:scPad(78,146,74,82)+scBox(70,110,146), eq:[{k:'db'}],
+  k:[{t:0,ua:[178,178],l:[90,0,90],anc:{hp:[92,142]}},{t:0,ua:[24,176],l:[90,0,90],anc:{hp:[92,142]}}]},
+ohp:{ g:104, eq:[{k:'bar'}],
+  k:[{t:-3,ua:[178,178]},{t:0,ua:[28,186]}]},
+landmine:{ eq:[{k:'landmine',from:[18,178]}],
+  k:[{t:12,ua:[132,132],l:[12,-6,90],fl:[-20,-18,90]},{t:12,ua:[24,170],l:[12,-6,90],fl:[-20,-18,90]}]},
+pike:{
+  k:[{t:148,ua:[0,0],l:[-40,-40,-30],anc:{wr:[128,178]}},{t:150,ua:[-70,20],l:[-40,-40,-30],anc:{wr:[128,178]}}]},
+/* ======================= TIRAGE HORIZONTAL ======================= */
+rowcs:{ sc:scPad(92,178,138,110), eq:[{k:'db'}],
+  k:[{t:50,ua:[-78,0],l:[20,-6,90],anc:{an:[84,178]}},{t:50,ua:[0,0],l:[20,-6,90],anc:{an:[84,178]}}]},
+rowbb:{ g:0, eq:[{k:'bar'}],
+  k:[{t:68,ua:[-88,4],l:[30,-6,90]},{t:68,ua:[-4,-4],l:[30,-6,90]}]},
+rowcable:{ sc:scTower(190)+scBox(46,90,154)+scBox(150,164,150), eq:[{k:'cable',from:[186,140]}],
+  k:[{t:-6,ua:[-48,90],l:[82,96,170],anc:{hp:[66,150]}},{t:14,ua:[92,92],l:[82,96,170],anc:{hp:[66,150]}}]},
+rowone:{ sc:scBench(96,184,140), eq:[{k:'db',at:'wr'}],
+  k:[{t:84,ua:[-82,0],fa:[4,4],l:[12,-2,90],fl:[88,-88,-90],anc:{an:[66,178]}},{t:84,ua:[0,0],fa:[4,4],l:[12,-2,90],fl:[88,-88,-90],anc:{an:[66,178]}}]},
+invrow:{ sc:scBar(92,120,176)+scPost(170,92),
+  k:[{t:78,ua:[118,200],l:[-78,-78,-10],anc:{wr:[150,92]}},{t:66,ua:[166,166],l:[-66,-66,-10],anc:{wr:[150,92]}}]},
+/* ======================= TIRAGE VERTICAL ======================= */
+pullup:{ sc:BEAM,
+  k:[{t:-10,ua:[24,176],l:[18,-46,30],anc:{wr:[104,22]}},{t:0,ua:[180,180],l:[12,-50,30],anc:{wr:[104,22]}}]},
+towel:{ sc:BEAM, eq:[{k:'towel',y:22}],
+  k:[{t:-10,ua:[24,176],l:[18,-46,30],anc:{wr:[104,40]}},{t:0,ua:[180,180],l:[12,-50,30],anc:{wr:[104,40]}}]},
+assisted:{ sc:BEAM, eq:[{k:'band',pairs:[['wr','kn']]}],
+  k:[{t:-10,ua:[24,176],l:[18,-46,30],anc:{wr:[104,22]}},{t:0,ua:[180,180],l:[12,-50,30],anc:{wr:[104,22]}}]},
+pulldown:{ sc:scBox(74,112,150)+scPost(112,134), eq:[{k:'latbar',from:[100,6]}],
+  k:[{t:-14,ua:[18,172],l:[88,0,90],anc:{hp:[90,146]}},{t:-6,ua:[172,172],l:[88,0,90],anc:{hp:[90,146]}}]},
+/* ======================= ÉPAULES ======================= */
+lateral:{ v:'front', eq:[{k:'db'}],
+  k:[{front:1,ua:[84,94],l:[4,0]},{front:1,ua:[10,10],l:[4,0]}]},
+lateralcable:{ v:'front', sc:scTower(20), eq:[{k:'cable',from:[24,172]}],
+  k:[{front:1,ua:[84,94],fa:[6,6],l:[4,0]},{front:1,ua:[-6,-4],fa:[6,6],l:[4,0]}]},
+lateralband:{ v:'front', eq:[{k:'band',pairs:[['an','wr'],['fan','fwr']]}],
+  k:[{front:1,ua:[84,94],l:[8,0]},{front:1,ua:[10,10],l:[8,0]}]},
+facepull:{ sc:scTower(192), eq:[{k:'cable',from:[188,48]}],
+  k:[{t:-4,ua:[-96,152],l:[10,-4,90],fl:[-12,-4,90]},{t:-2,ua:[116,116],l:[10,-4,90],fl:[-12,-4,90]}]},
+reversefly:{ eq:[{k:'db'}],
+  k:[{t:68,ua:[-74,-78],l:[28,-6,90]},{t:68,ua:[2,2],l:[28,-6,90]}]},
+shoulderpass:{ v:'front', eq:[{k:'stick'}],
+  k:[{front:1,ua:[22,22],l:[8,0]},{front:1,ua:[172,172],l:[8,0]}]},
+/* ======================= BRAS ======================= */
+curl:{ eq:[{k:'bar'}],
+  k:[{t:0,ua:[14,164]},{t:0,ua:[2,2]}]},
+hammer:{ eq:[{k:'db'}],
+  k:[{t:0,ua:[14,164]},{t:0,ua:[2,2]}]},
+curlband:{ eq:[{k:'band',pairs:[['an','wr']]}],
+  k:[{t:0,ua:[14,164]},{t:0,ua:[2,2]}]},
+curlincline:{ sc:scPad(66,64,104,140)+scPost(104,140), eq:[{k:'db'}],
+  k:[{t:-34,ua:[-14,150],l:[84,0,90],anc:{hp:[104,138]}},{t:-34,ua:[-14,-14],l:[84,0,90],anc:{hp:[104,138]}}]},
+preacher:{ sc:scPad(92,118,122,90)+scPost(110,112)+scBox(50,92,146), eq:[{k:'bar'}],
+  k:[{t:14,ua:[50,166],l:[90,0,90],anc:{hp:[70,142]}},{t:14,ua:[50,58],l:[90,0,90],anc:{hp:[70,142]}}]},
+pushdown:{ sc:scTower(140), eq:[{k:'cable',from:[134,12]}],
+  k:[{t:10,ua:[4,4]},{t:10,ua:[4,146]}]},
+ohtri:{ sc:scTower(16), eq:[{k:'cable',from:[22,28]}],
+  k:[{t:32,ua:[160,160],l:[22,-10,90],fl:[-16,-6,90]},{t:32,ua:[160,-36],l:[22,-10,90],fl:[-16,-6,90]}]},
+ohtridb:{ eq:[{k:'db',at:'wr'}],
+  k:[{t:0,ua:[176,176],fa:[176,176]},{t:0,ua:[176,-8],fa:[176,-8]}]},
+skull:{ sc:BENCH, eq:[{k:'bar'}],
+  k:[{t:-90,ua:[192,192],l:[75,-5,90],anc:{hp:[120,133]}},{t:-90,ua:[192,262],l:[75,-5,90],anc:{hp:[120,133]}}]},
+benchdips:{ sc:scBench(40,92,136),
+  k:[{t:2,ua:[-10,-10],l:[90,6,90],anc:{wr:[76,136]}},{t:6,ua:[-96,28],l:[88,53,90],anc:{wr:[76,136]}}]},
+/* ======================= ISOLATION JAMBES ======================= */
+legext:{ sc:scPad(60,146,62,86)+scBox(56,104,146), eq:[{k:'pad'}],
+  k:[{t:-10,ua:[28,70],l:[88,88,178],anc:{hp:[78,140]}},{t:-10,ua:[28,70],l:[88,4,90],anc:{hp:[78,140]}}]},
+legcurl:{ sc:scPad(58,146,60,86)+scBox(54,104,146), eq:[{k:'pad'}],
+  k:[{t:-8,ua:[28,70],l:[92,-14,80],anc:{hp:[78,138]}},{t:-8,ua:[28,70],l:[92,94,180],anc:{hp:[78,138]}}]},
+legcurllying:{ sc:scBench(24,156,138), eq:[{k:'pad'}],
+  k:[{t:-90,ua:[4,4],l:[90,206,120],anc:{hp:[118,131]}},{t:-90,ua:[4,4],l:[90,92,180],anc:{hp:[118,131]}}]},
+nordic:{
+  k:[{t:0,ua:[40,120],l:[0,-90,-150],anc:{kn:[62,174]}},{t:62,ua:[96,110],l:[-62,-90,-150],anc:{kn:[62,174]}}]},
+calf:{ sc:scBox(96,150,160), eq:[{k:'pad',at:'sh',r:5}],
+  k:[{t:0,ar:[-18,168],l:[0,0,48],anc:{to:[124,158]}},{t:0,ar:[-18,168],l:[0,0,114],anc:{to:[124,158]}}]},
+calfbw:{ sc:scBox(96,150,160)+scPost(170,40),
+  k:[{t:0,ua:[80,90],l:[0,0,48],anc:{to:[124,158]}},{t:0,ua:[80,90],l:[0,0,114],anc:{to:[124,158]}}]},
+calfseat:{ sc:scBox(118,150,162)+scBox(62,98,122), eq:[{k:'pad',at:'kn',r:7}],
+  k:[{t:0,ua:[30,90],l:[90,0,48],anc:{to:[136,160]}},{t:0,ua:[30,90],l:[90,0,114],anc:{to:[136,160]}}]},
+/* ======================= ABDOS & GAINAGE ======================= */
+cablecrunch:{ sc:scTower(156), eq:[{k:'cable',from:[150,10]}],
+  k:[{t:14,ar:[150,245],l:[-4,-90,-150],anc:{kn:[92,176]}},{t:84,ar:[150,245],l:[-10,-90,-150],anc:{kn:[92,176]}}]},
+legraise:{ sc:scBar(12),
+  k:[{t:-10,ua:[180,180],l:[100,96,176],anc:{wr:[100,12]}},{t:0,ua:[180,180],l:[4,4,20],anc:{wr:[100,12]}}]},
+abwheel:{ eq:[{k:'wheel'}],
+  k:[{t:60,ua:[8,8],l:[-18,-90,-150],anc:{kn:[40,176]}},{t:84,ua:[73,73],l:[-64,-90,-150],anc:{kn:[40,176]}}]},
+plank:{ tp:'i',
+  k:[{t:80,ua:[0,90],l:[-80,-80,-15],anc:{el:[132,176]}},{t:82,ua:[0,90],l:[-82,-82,-15],anc:{el:[132,176]}}]},
+wplank:{ tp:'i', eq:[{k:'plate',at:'back',r:12}],
+  k:[{t:80,ua:[0,90],l:[-80,-80,-15],anc:{el:[132,176]}},{t:82,ua:[0,90],l:[-82,-82,-15],anc:{el:[132,176]}}]},
+pallof:{ sc:scTower(192), eq:[{k:'cable',from:[188,96]}],
+  k:[{t:0,ua:[40,150],l:[10,-4,90],fl:[-10,4,90]},{t:0,ua:[92,92],l:[10,-4,90],fl:[-10,4,90]}]},
+woodchop:{ sc:scTower(14), eq:[{k:'cable',from:[18,22]}],
+  k:[{t:22,ua:[62,62],l:[22,-12,90],fl:[-14,-8,90]},{t:-8,ua:[-148,-148],l:[8,-4,90],fl:[-10,-4,90]}]},
+deadbug:{
+  k:[{t:-90,ua:[180,180],l:[180,90,180],anc:{hp:[112,174]}},{t:-90,ua:[180,180],fa:[-96,-96],l:[96,94,180],fl:[180,90,180],anc:{hp:[112,174]}}]},
+crunch:{
+  k:[{t:-52,ar:[150,245],l:[140,-24,90],anc:{an:[132,178]}},{t:-90,ar:[150,245],l:[140,-24,90],anc:{an:[132,178]}}]},
+/* ======================= MMA, PORTÉS, NUQUE ======================= */
+sled:{ tp:'c', eq:[{k:'sled'}],
+  k:[{t:62,ua:[86,86],l:[56,-24,90],fl:[-26,-50,60],anc:{hp:[78,116]}},{t:62,ua:[86,86],l:[-26,-50,60],fl:[56,-24,90],anc:{hp:[78,116]}}]},
+farmer:{ tp:'c', eq:[{k:'kb',at:'wr'},{k:'kb',at:'fwr'}],
+  k:[{t:0,ua:[2,2],l:[22,-6,90],fl:[-20,-34,70],anc:{hp:[100,108]}},{t:0,ua:[2,2],l:[-20,-34,70],fl:[22,-6,90],anc:{hp:[100,108]}}]},
+pinch:{ tp:'i', eq:[{k:'pinch'}],
+  k:[{t:0,ua:[4,4]},{t:0,ua:[4,4]}]},
+neckext:{ eq:[{k:'chain'}],
+  k:[{t:52,h:-40,ua:[40,70],l:[18,-6,90]},{t:52,h:56,ua:[40,70],l:[18,-6,90]}]},
+neckflex:{ sc:scBench(70,150,140), eq:[{k:'plate',at:'hd',r:9}],
+  k:[{t:-90,h:52,ua:[60,90],l:[75,-5,90],anc:{hp:[118,133]}},{t:-90,h:-24,ua:[60,90],l:[75,-5,90],anc:{hp:[118,133]}}]},
+neckiso:{ v:'front', tp:'i',
+  k:[{front:1,ua:[112,-104],fa:[8,8],l:[6,0]},{front:1,ua:[112,-104],fa:[8,8],l:[6,0]}]},
+rotation:{ eq:[{k:'landmine',from:[16,178]}],
+  k:[{t:6,ua:[108,108],l:[14,-8,90],fl:[-14,-8,90]},{t:10,ua:[58,58],l:[20,-12,90],fl:[-10,-6,90]}]},
+rope:{ tp:'c', v:'front', eq:[{k:'rope'}],
+  k:[{front:1,ua:[24,70],l:[3,0],anc:{an:[106,177]}},{front:1,ua:[24,70],l:[3,0],anc:{an:[106,168]}}]},
+hip9090:{
+  k:[{t:0,ua:[30,30],l:[90,90,180],fl:[-90,-90,-80],anc:{hp:[96,170]}},{t:40,ua:[70,70],l:[90,90,180],fl:[-90,-90,-80],anc:{hp:[96,170]}}]},
+shadow:{ tp:'c',
+  k:[{t:6,ua:[14,166],fa:[20,164],l:[12,-6,90],fl:[-18,-8,90]},{t:10,ua:[92,92],fa:[20,164],l:[12,-6,90],fl:[-18,-8,90]}]},
+bike:{ tp:'c', sc:'<circle class="scf" cx="156" cy="160" r="20"/>'+scPad(88,122,124,160)+scPad(124,160,140,92)+scPad(80,120,98,120),
+  k:[{t:28,ua:[74,100],l:[104,24,95],fl:[40,-12,90],anc:{hp:[88,114]}},{t:28,ua:[88,84],l:[40,-12,90],fl:[104,24,95],anc:{hp:[88,114]}}]}
+};
+/* ==========================================================================
+   V11 — CATALOGUE D'EXERCICES
+   Le nom reste la clé : c'est lui qui relie tes séries, tes records et tes
+   fantômes. Un exercice renommé perdrait son historique, donc les noms
+   existants ne changent pas.
+     p   = famille de mouvement (les alternatives viennent de la même famille)
+     m   = muscles
+     eq  = matériel nécessaire (vide = poids du corps)
+   ========================================================================== */
+var EXC={}, EXC_ORDER=[];
+function X(n,pose,p,m,eq,c){ EXC[n]={n:n,pose:pose,p:p,m:m,eq:eq,c:c}; EXC_ORDER.push(n); }
+
+/* --- squat --- */
+X('Squat barre','squat','squat','Quadriceps · fessiers',['barre'],['Barre à l’aplomb du milieu du pied','Gainage avant de descendre','Genoux qui avancent, pas seulement les fesses']);
+X('Front squat','frontsquat','squat','Quadriceps · gainage',['barre'],['Coudes hauts du début à la fin','Buste le plus droit possible','Descends entre les talons']);
+X('Hack squat','hack','squat','Quadriceps',['machine'],['Dos plaqué au dossier','Amplitude complète, descends bas','Pousse dans tout le pied']);
+X('Presse à cuisses','legpress','squat','Quadriceps · fessiers',['machine'],['Genoux dans l’axe des pieds','Le bas du dos ne décolle jamais','Ne verrouille pas les genoux en haut']);
+X('Leg press unilatérale','legpress','squat','Quadriceps · fessiers',['machine'],['Une jambe, charge divisée par plus que deux','Même amplitude que la moins bonne jambe','Hanche calée dans le siège']);
+X('Goblet squat','goblet','squat','Quadriceps · fessiers',['halteres'],['Charge collée contre le sternum','Coudes entre les genoux en bas','Talons au sol, poitrine haute']);
+X('Squat au poids du corps','bwsquat','squat','Quadriceps · fessiers',[],['Bras devant pour l’équilibre','Descends le plus bas possible en gardant le dos neutre','Remonte vite, descends lentement']);
+X('Sissy squat','sissy','quad','Quadriceps',[],['Tiens un support pour l’équilibre','Genoux vers l’avant, talons décollés','Ligne droite des genoux aux épaules']);
+X('Leg extension','legext','quad','Quadriceps',['machine'],['Pause d’une seconde en haut','Descente lente','Reste collé au dossier']);
+/* --- fentes --- */
+X('Fente bulgare','bulgare','lunge','Quadriceps · fessiers',['banc'],['Le poids sur la jambe avant','Buste légèrement penché','Genou arrière qui frôle le sol']);
+X('Fentes marchées','lunge','lunge','Jambes · fessiers',['halteres'],['Grand pas, genou arrière au ras du sol','Pousse dans le talon avant','Buste droit, regard devant']);
+X('Fente arrière','bwlunge','lunge','Jambes · fessiers',[],['Recule, ne plonge pas vers l’avant','Genou avant au-dessus de la cheville','Remonte en poussant sur la jambe avant']);
+X('Step-up','stepup','lunge','Quadriceps · fessiers',['banc','halteres'],['Tout le pied sur la marche','La jambe du haut fait tout le travail','Redescends lentement, sans sauter']);
+/* --- charnière --- */
+X('Soulevé de terre roumain','rdl','hinge','Ischios · fessiers',['barre'],['Charnière de hanche, pas un squat','La barre frôle les jambes','Stop dès que le dos s’arrondirait']);
+X('Soulevé de terre roumain lourd','rdl','hinge','Ischios · fessiers',['barre'],['Même exercice tout le bloc','Pousse les hanches loin derrière','Dos plat même quand ça devient lourd']);
+X('Soulevé de terre roumain haltères','rdldb','hinge','Ischios · fessiers',['halteres'],['Haltères qui glissent le long des cuisses','Genoux souples, pas pliés','Étirement dans l’arrière des cuisses']);
+X('Soulevé de terre','deadlift','hinge','Chaîne postérieure',['barre'],['Barre au-dessus du milieu du pied','Épaules devant la barre au départ','Pousse le sol, ne tire pas avec les bras']);
+X('Soulevé de terre sumo','sumo','hinge','Chaîne postérieure · adducteurs',['barre'],['Pieds larges, pointes ouvertes','Genoux poussés vers l’extérieur','Buste plus droit qu’en conventionnel']);
+X('Good morning','goodmorning','hinge','Ischios · lombaires',['barre'],['Charge légère, c’est un exercice de contrôle','Hanches en arrière, dos plat','Remonte en serrant les fessiers']);
+X('Hip thrust','hipthrust','hinge','Fessiers',['barre','banc'],['Omoplates sur le banc','Menton rentré, côtes basses','Serre les fessiers une seconde en haut']);
+X('Pont fessier','bridge','hinge','Fessiers',[],['Pieds proches des fesses','Pousse dans les talons','Pause en haut, bassin rétroversé']);
+X('Leg curl assis','legcurl','ham','Ischios',['machine'],['Assis > allongé pour l’étirement','Pause en contraction','Remontée contrôlée']);
+X('Leg curl allongé','legcurllying','ham','Ischios',['machine'],['Hanches plaquées au banc','Monte jusqu’au bout','Descente en 3 secondes']);
+X('Nordic curl','nordic','ham','Ischios',[],['Chevilles bloquées sous un support','Descends le plus lentement possible','Rattrape-toi avec les mains, remonte en poussant']);
+/* --- mollets --- */
+X('Mollets debout','calf','calf','Mollets',['machine'],['2 s de pause en bas, étiré','Monte le plus haut possible','Genoux quasi tendus']);
+X('Mollets assis','calfseat','calf','Soléaire',['machine'],['Genoux à 90°','Pause étirée en bas','Le soléaire aime les séries longues']);
+X('Mollets unilatéraux','calfbw','calf','Mollets',[],['Une jambe sur une marche','Tiens un mur, pas pour t’aider','Amplitude complète, lentement']);
+/* --- poussée horizontale --- */
+X('Développé couché','bench','hpush','Pectoraux · triceps',['barre','banc'],['Omoplates serrées et basses','Coudes à 45°, pas à 90','Pieds qui poussent dans le sol']);
+X('Développé couché haltères','benchdb','hpush','Pectoraux · triceps',['halteres','banc'],['Descends plus bas qu’avec une barre','Haltères au niveau du bas des pecs','Ne les cogne pas en haut']);
+X('Développé incliné barre','incline','hpush','Haut des pectoraux',['barre','banc'],['Banc à 30°, pas plus','Barre qui touche le haut des pecs','Charge modérée']);
+X('Développé incliné haltères','inclinedb','hpush','Haut des pectoraux',['halteres','banc'],['Banc à 30°','Étirement en bas','Poignets au-dessus des coudes']);
+X('Développé machine','machine','hpush','Pectoraux',['machine'],['Endroit sûr pour aller près de l’échec','Omoplates collées au dossier','Poignées à hauteur du bas des pecs']);
+X('Chest press convergente','machine','hpush','Pectoraux',['machine'],['Les mains se rejoignent en fin de poussée','Retour lent et étiré','Pas d’élan']);
+X('Pompes','pushup','hpush','Pectoraux · triceps',[],['Corps gainé comme une planche','Poitrine qui frôle le sol','Coudes à 45°']);
+X('Pompes lestées','wpushup','hpush','Pectoraux · triceps',[],['Disque ou sac sur le haut du dos','Gainage strict','Amplitude complète avant d’ajouter du poids']);
+X('Dips lestés','dips','hpush','Pectoraux · triceps',['barrefixe'],['Buste penché pour cibler les pecs','Descends jusqu’à l’étirement, pas plus','Ajoute du lest dès 12 propres']);
+X('Écarté poulie','pallof','hpush','Pectoraux',['poulie'],['Bras légèrement fléchis, figés','Étirement large','Les mains se croisent devant']);
+/* --- poussée verticale --- */
+X('Développé épaules assis','ohpseat','vpush','Épaules · triceps',['halteres','banc'],['Stop juste avant le verrouillage','Dos collé au dossier','Coudes légèrement devant']);
+X('Développé militaire','ohp','vpush','Épaules · triceps',['barre'],['Fessiers serrés, pas de cambrure','La tête passe à travers en haut','Barre au-dessus du milieu du pied']);
+X('Arnold press','ohpseat','vpush','Épaules',['halteres','banc'],['Paumes vers toi en bas','Rotation pendant la montée','Contrôle la descente']);
+X('Landmine press','landmine','vpush','Épaules · pecs',['barre'],['Poussée en diagonale','Gainage anti-rotation','Épaule-friendly : idéal si l’épaule tire']);
+X('Pompes piquées','pike','vpush','Épaules · triceps',[],['Hanches hautes, en V inversé','La tête descend entre les mains','Pieds sur un banc pour plus dur']);
+/* --- élévations --- */
+X('Élévation latérale haltères','lateral','lateral','Deltoïdes',['halteres'],['Léger : les deltoïdes n’ont pas besoin de lourd','Monte jusqu’à l’horizontale','Coude légèrement plus haut que le poignet']);
+X('Élévation latérale poulie','lateralcable','lateral','Deltoïdes',['poulie'],['Un bras à la fois','Poulie basse, câble derrière toi','Ralentis la descente']);
+X('Élévation latérale élastique','lateralband','lateral','Deltoïdes',['elastique'],['Élastique sous les pieds','Pause en haut','Séries longues, 15 à 25']);
+X('Face pull','facepull','reardelt','Deltoïdes postérieurs · coiffe',['poulie'],['Coudes hauts','Tire vers le front, écarte les mains','Santé de l’épaule']);
+X('Oiseau haltères','reversefly','reardelt','Deltoïdes postérieurs',['halteres'],['Buste penché, dos plat','Écarte les bras, pas de tirage','Léger et contrôlé']);
+X('Passages d’épaules','shoulderpass','mob','Mobilité épaules',['elastique'],['Prise large sur un bâton ou élastique','Passe au-dessus de la tête sans plier les coudes','Resserre la prise au fil des semaines']);
+/* --- tirage horizontal --- */
+X('Rowing buste appuyé','rowcs','hpull','Dos · rhomboïdes',['halteres','banc'],['Laisse voyager l’omoplate en bas','Le coude passe derrière les côtes','Le buste ne décolle jamais']);
+X('Rowing barre','rowbb','hpull','Dos',['barre'],['Buste à 45° ou plus bas','Tire vers le nombril','Pas de coup de reins']);
+X('Rowing prise neutre','rowcable','hpull','Dos',['poulie'],['Serre, n’arrache pas','Poitrine haute','Étirement complet devant']);
+X('Rowing unilatéral haltère','rowone','hpull','Grand dorsal',['halteres','banc'],['Main et genou sur le banc','Tire le coude vers la hanche','Étire bien en bas']);
+X('Rowing inversé','invrow','hpull','Dos · biceps',['barrefixe'],['Corps gainé, talons au sol','Poitrine vers la barre','Plus les pieds avancent, plus c’est dur']);
+/* --- tirage vertical --- */
+X('Traction lestée','pullup','vpull','Grand dorsal · biceps',['barrefixe'],['Ajoute du lest dès 8 propres','Poitrine vers la barre','Descente complète, bras tendus']);
+X('Traction supination','pullup','vpull','Dos · biceps',['barrefixe'],['Paumes vers toi','Menton au-dessus de la barre','Pas de balancier']);
+X('Traction assistée élastique','assisted','vpull','Grand dorsal',['barrefixe','elastique'],['Élastique sous le genou','Même technique qu’une vraie traction','Élastique plus fin chaque mois']);
+X('Tirage vertical prise large','pulldown','vpull','Grand dorsal',['poulie'],['Étirement complet en haut','Tire les coudes vers les poches','Buste légèrement incliné']);
+X('Tirage vertical prise neutre','pulldown','vpull','Grand dorsal',['poulie'],['Prise serrée, paumes face à face','Barre vers le haut de la poitrine','Épaules basses']);
+X('Traction à la serviette','towel','vpull','Dos · préhension',['barrefixe'],['Deux serviettes sur la barre','Serre comme si ta vie en dépendait','Brutal, et ça transfère au combat']);
+/* --- biceps --- */
+X('Curl barre EZ','curl','bicep','Biceps',['barre'],['Coudes collés au corps','Contrôle la descente','Pas de balancier du buste']);
+X('Curl incliné haltères','curlincline','bicep','Biceps (longue portion)',['halteres','banc'],['Bras qui pendent derrière le buste','Longue portion étirée','Pas de triche']);
+X('Curl marteau','hammer','bicep','Biceps · brachial',['halteres'],['Paumes face à face','Coudes fixes','Monte jusqu’à l’épaule']);
+X('Curl pupitre','preacher','bicep','Biceps',['barre','banc'],['Aisselle calée en haut du pupitre','Descends presque tendu','Pas de rebond en bas']);
+X('Curl élastique','curlband','bicep','Biceps',['elastique'],['Élastique sous les pieds','Pause en haut','Tension constante']);
+/* --- triceps --- */
+X('Extension triceps poulie','pushdown','tricep','Triceps',['poulie'],['Coudes serrés et fixes','Verrouille en bas','Dernière série à l’échec']);
+X('Extension triceps poulie haute','ohtri','tricep','Triceps (longue portion)',['poulie'],['Dos à la poulie, bras au-dessus de la tête','Étirement profond derrière la tête','Coudes qui ne s’écartent pas']);
+X('Extension triceps au-dessus de la tête','ohtridb','tricep','Triceps (longue portion)',['halteres'],['Un haltère à deux mains','Descends derrière la nuque','Coudes pointés vers le plafond']);
+X('Barre au front','skull','tricep','Triceps',['barre','banc'],['Barre vers le front ou derrière la tête','Seuls les avant-bras bougent','Charge modérée, coudes fragiles']);
+X('Dips au banc','benchdips','tricep','Triceps',['banc'],['Mains au bord du banc','Descends jusqu’à 90° aux coudes','Épaules basses']);
+/* --- abdos / gainage --- */
+X('Crunch à la poulie','cablecrunch','core','Abdominaux',['poulie'],['Enroule le dos, cherche la contraction','Les hanches ne bougent pas','Souffle en descendant']);
+X('Relevé de jambes suspendu','legraise','core','Abdominaux',['barrefixe'],['Enroule le bassin, ne balance pas','Jambes tendues si possible','Descente lente']);
+X('Relevé de jambes avec rotation','legraise','core','Abdominaux · obliques',['barrefixe'],['Monte les genoux vers une épaule','Alterne les côtés','La garde en un seul mouvement']);
+X('Ab wheel','abwheel','core','Abdominaux',[],['Bassin rétroversé tout du long','Va aussi loin que tu tiens le dos plat','Reviens en contractant, pas avec les bras']);
+X('Planche','plank','core','Gainage',[],['Fessiers serrés','Pas de creux dans le bas du dos','Respire pendant la tenue']);
+X('Planche lestée','wplank','core','Gainage',[],['Disque sur le haut du dos','Corps parfaitement droit','Arrête avant que le dos ne creuse']);
+X('Pallof press','pallof','core','Anti-rotation',['poulie'],['Résiste à la rotation, ne la crée pas','Pousse tout droit devant','Pause bras tendus']);
+X('Woodchop poulie','woodchop','core','Obliques',['poulie'],['Du haut vers le bas en diagonale','Les hanches pivotent avec','Bras presque tendus']);
+X('Dead bug','deadbug','core','Gainage profond',[],['Bas du dos collé au sol','Bras et jambe opposés','Lent, expire en allongeant']);
+X('Crunch','crunch','core','Abdominaux',[],['Enroule, ne tire pas sur la nuque','Pause en haut','Le bas du dos reste au sol']);
+X('Rotation landmine','rotation','core','Obliques · hanches',['barre'],['Les hanches mènent, les bras suivent','Bras tendus','Contrôle l’arc des deux côtés']);
+/* --- puissance, MMA --- */
+X('Épaulé départ cuisses','clean','power','Triple extension',['barre'],['Barre qui reste près du corps','Hanches qui explosent vers l’avant','Coudes rapides sous la barre']);
+X('Lancer médecine-ball rotatif','mbthrow','power','Rotation explosive',['mb'],['Le pied arrière pivote — c’est un direct','Les hanches lancent, les bras suivent','Note le poids du ballon']);
+X('Slam médecine-ball','mbslam','power','Tout le corps',['mb'],['Monte sur la pointe des pieds','Finis à travers le sol','Rattrape le ballon et enchaîne']);
+X('Saut en longueur','broadjump','power','Puissance des jambes',[],['Bras qui lancent le saut','Réception genoux souples','Reset complet entre chaque saut']);
+X('Box jump','boxjump','power','Puissance des jambes',['banc'],['Réception silencieuse','Redescends en marchant','La hauteur de la boîte ne compte pas, la vitesse si']);
+X('Swing kettlebell','kbswing','power','Hanches · ischios',['kb'],['Charnière, pas un squat','Les hanches claquent vers l’avant','Les bras ne font que guider']);
+X('Burpee-sprawl','burpee','power','Conditionnement',[],['Hanches au sol comme un sprawl','Relève-toi vite','Rythme constant, pas de sprint mort']);
+X('Poussée de traîneau','sled','carry','Jambes · conditionnement',['traineau'],['Corps penché, bras tendus','Petits pas puissants','Note la charge du traîneau']);
+X('Poussée de traîneau lourd','sled','carry','Jambes · conditionnement',['traineau'],['Bas, en poussée','C’est un amené au sol contre la cage','Ne relève jamais les hanches']);
+X('Marche du fermier','farmer','carry','Préhension · gainage',['halteres'],['Épaules basses, buste droit','Pas courts et rapides','Les 10 derniers mètres doivent être un combat']);
+X('Pince sur disques','pinch','carry','Préhension',['barre'],['Deux disques lisses face contre face','Bras le long du corps','Note les kg, reps = 1']);
+X('Extension nuque au harnais','neckext','neck','Nuque',['barre'],['Commence ridiculement léger','Lentement, jamais d’à-coup','Douleur vive = stop']);
+X('Flexion nuque allongé','neckflex','neck','Nuque',['banc'],['Disque enveloppé dans une serviette','Menton vers la poitrine','Amplitude confortable']);
+X('Isométrie nuque, 4 directions','neckiso','neck','Nuque',[],['Ta main en résistance','Aucun mouvement de la tête','Avant, arrière, et les deux côtés']);
+X('Corde à sauter','rope','cardio','Cardio · appuis',[],['Léger, sur la pointe des pieds','Les poignets font tourner la corde','Coudes près du corps']);
+X('Bascule 90/90','hip9090','mob','Mobilité hanches',[],['Assis, jambes à 90° devant et derrière','Bascule d’un côté à l’autre','Buste droit, sans les mains si possible']);
+X('Shadow boxing, 1 kg par main','shadow','cardio','Épaules · cardio',[],['Garde haute entre les coups','Rotation des hanches sur chaque direct','Vitesse avant puissance']);
+X('Assault bike ou corde','bike','cardio','Cardio',['machine'],['Bras et jambes ensemble','Intervalles : fort / facile','Note les calories ou le temps']);
+
+/* matériel : clé → libellé. « salle » a tout. */
+var EQUIP_LABEL={barre:'barre',halteres:'haltères',banc:'banc',machine:'machine',poulie:'poulie',barrefixe:'barre fixe',elastique:'élastique',kb:'kettlebell',mb:'médecine-ball',traineau:'traîneau'};
+var EQUIP_SETS={
+  salle:{ n:'Salle complète', d:'Barres, machines, poulies', has:Object.keys(EQUIP_LABEL) },
+  maison:{ n:'Haltères à la maison', d:'Haltères, banc, barre fixe, élastiques', has:['halteres','banc','barrefixe','elastique','kb'] },
+  pdc:{ n:'Poids du corps', d:'Barre fixe et élastiques seulement', has:['barrefixe','elastique'] }
+};
+var EXGROUPS=[
+  ['all','Tous'],['Pectoraux',['hpush']],['Dos',['hpull','vpull']],['Épaules',['vpush','lateral','reardelt']],
+  ['Bras',['bicep','tricep']],['Jambes',['squat','lunge','quad','calf']],['Ischios & fessiers',['hinge','ham']],
+  ['Abdos',['core']],['MMA & athlé',['power','carry','neck','cardio','mob']]
+];
+/* ==========================================================================
+   V11 — PROGRAMMES
+   Les clés de séance déjà utilisées (ua, la, mma, ub, lb, fba, fbb, fbc)
+   ne changent pas : ton historique reste attaché. Plusieurs programmes
+   partagent des séances, donc passer de l'un à l'autre ne perd rien.
+   ========================================================================== */
+function SS(k,label,sub,pill,lifts){ SESSIONS[k]={label:label,sub:sub,pill:pill,lifts:lifts}; }
+
+SS('fba','FULL BODY A','squat · couché · rowing','u',[
+ ['Squat barre','4 × 6–8','Commence léger, amplitude complète'],
+ ['Développé couché','4 × 6–8','Contrôle la descente'],
+ ['Rowing buste appuyé','3 × 8–10','Tire les coudes vers l’arrière'],
+ ['Leg curl assis','3 × 10–12','Pause en contraction'],
+ ['Élévation latérale poulie','3 × 12–15','Un bras à la fois'],
+ ['Curl barre EZ','2 × 10–12','Descente lente']]);
+SS('fbb','FULL BODY B','charnière · épaules · traction','l',[
+ ['Soulevé de terre roumain lourd','4 × 6–8','Charge modérée, technique propre'],
+ ['Développé épaules assis','3 × 8–10','Tronc stable'],
+ ['Traction lestée','4 × 6–8','Poitrine vers la barre'],
+ ['Fente bulgare','3 × 8–10/jambe','Commence sans charge si besoin'],
+ ['Face pull','3 × 15–20','Coudes hauts'],
+ ['Extension triceps poulie haute','2 × 10–12','Étirement profond']]);
+SS('fbc','FULL BODY C','presse · incliné · fessiers','u',[
  ['Presse à cuisses','3 × 10–12','Amplitude confortable'],
- ['Développé incliné haltères','3 × 8–12','Banc incliné à 30°'],
- ['Rowing prise neutre','3 × 8–12','Contrôle le retour'],
- ['Leg curl assis','2 × 10–15','Pause en contraction'],
- ['Face pull','2 × 12–15','Coudes hauts'],
- ['Mollets debout','2 × 10–15','Pause en bas']
-]};
-window.setTrainingMode=function(){var full=S.profile.training==='fullbody';ORDER=full?['fba','fbb','fbc']:['ua','la','mma','ub','lb'];DOW_PLAN=full?{1:'fba',3:'fbb',5:'fbc'}:{1:'ua',2:'la',3:'mma',5:'ub',6:'lb'};document.body.classList.toggle('training-fullbody',full)};
+ ['Développé incliné haltères','3 × 8–12','Banc à 30°'],
+ ['Rowing prise neutre','3 × 10–12','Contrôle le retour'],
+ ['Hip thrust','3 × 8–12','Pause en haut'],
+ ['Élévation latérale haltères','3 × 12–20','Sans élan'],
+ ['Mollets debout','3 × 10–15','Pause en bas'],
+ ['Crunch à la poulie','2 × 12–15','Respire et contrôle']]);
+
+SS('fb2a','FULL BODY 2J · A','squat · couché · rowing','u',[
+ ['Squat barre','4 × 6–8','La séance la plus lourde de la semaine'],
+ ['Développé couché','4 × 6–8','Omoplates serrées'],
+ ['Rowing buste appuyé','4 × 8–10','Étirement complet en bas'],
+ ['Soulevé de terre roumain','3 × 8–10','Charnière, dos plat'],
+ ['Élévation latérale haltères','3 × 12–15','Léger'],
+ ['Curl incliné haltères','2 × 10–12','Longue portion étirée'],
+ ['Crunch à la poulie','2 × 12–15','Enroule le dos']]);
+SS('fb2b','FULL BODY 2J · B','hack · incliné · traction','l',[
+ ['Hack squat','3 × 8–10','Amplitude complète'],
+ ['Développé incliné haltères','4 × 8–10','Banc à 30°'],
+ ['Traction lestée','4 × 6–8','Descente complète'],
+ ['Hip thrust','3 × 8–12','Serre en haut'],
+ ['Développé épaules assis','3 × 8–10','Stop avant le verrouillage'],
+ ['Leg curl assis','3 × 10–12','Pause en contraction'],
+ ['Extension triceps poulie','2 × 12–15','Coudes fixes']]);
+
+SS('fb4a','FULL BODY 4J · FORCE A','squat · couché lourds','u',[
+ ['Squat barre','4 × 5–6','Lourd, 1–2 reps en réserve'],
+ ['Développé couché','4 × 5–6','Pause d’un temps sur la poitrine'],
+ ['Rowing barre','3 × 6–8','Buste bas, sans élan'],
+ ['Mollets debout','3 × 8–12','Pause étirée'],
+ ['Relevé de jambes suspendu','3 × 10–15','Enroule le bassin']]);
+SS('fb4b','FULL BODY 4J · VOLUME A','charnière · incliné · tirage','l',[
+ ['Soulevé de terre roumain','3 × 8–10','L’étirement compte, pas la charge'],
+ ['Développé incliné haltères','3 × 10–12','Étirement en bas'],
+ ['Tirage vertical prise large','3 × 10–12','Étirement complet'],
+ ['Fentes marchées','2 × 12/jambe','Grand pas'],
+ ['Élévation latérale haltères','3 × 15–20','Série longue, brûlure'],
+ ['Curl incliné haltères','3 × 10–12','Pas de triche']]);
+SS('fb4c','FULL BODY 4J · FORCE B','soulevé · épaules · traction','u',[
+ ['Soulevé de terre','3 × 4–5','Reset à chaque répétition'],
+ ['Développé militaire','4 × 6–8','Fessiers serrés'],
+ ['Traction lestée','4 × 5–7','Lest progressif'],
+ ['Front squat','3 × 6–8','Coudes hauts'],
+ ['Pallof press','3 × 12/côté','Anti-rotation']]);
+SS('fb4d','FULL BODY 4J · VOLUME B','hack · dips · rowing','l',[
+ ['Hack squat','3 × 10–12','Amplitude complète'],
+ ['Dips lestés','3 × 8–12','Buste penché'],
+ ['Rowing unilatéral haltère','3 × 10–12','Coude vers la hanche'],
+ ['Leg curl allongé','3 × 10–12','Descente en 3 s'],
+ ['Face pull','3 × 15–20','Coudes hauts'],
+ ['Extension triceps poulie','3 × 12–15','Dernière série à l’échec'],
+ ['Curl marteau','2 × 10–12','Coudes fixes']]);
+
+SS('pu','PUSH','pecs · épaules · triceps','u',[
+ ['Développé couché','4 × 6–8','1–2 reps en réserve'],
+ ['Développé incliné haltères','3 × 8–12','Banc à 30°'],
+ ['Développé épaules assis','3 × 8–10','Stop avant le verrouillage'],
+ ['Élévation latérale poulie','4 × 12–15','Un bras à la fois'],
+ ['Extension triceps poulie haute','3 × 10–12','Étirement profond'],
+ ['Extension triceps poulie','2 × 12–15','Coudes serrés']]);
+SS('pl','PULL','dos · arrière d’épaules · biceps','l',[
+ ['Traction lestée','4 × 6–8','Poitrine vers la barre'],
+ ['Rowing buste appuyé','4 × 8–10','Le buste ne décolle pas'],
+ ['Tirage vertical prise neutre','3 × 10–12','Épaules basses'],
+ ['Face pull','3 × 15–20','Coudes hauts'],
+ ['Curl incliné haltères','3 × 10–12','Longue portion étirée'],
+ ['Curl marteau','2 × 10–12','Paumes face à face']]);
+SS('lg','LEGS','quadriceps · ischios · mollets','m',[
+ ['Squat barre','4 × 6–8','Sous la parallèle si les hanches suivent'],
+ ['Soulevé de terre roumain','3 × 8–10','Charnière, dos plat'],
+ ['Presse à cuisses','3 × 10–12','Genoux dans l’axe'],
+ ['Leg curl assis','3 × 10–12','Pause en contraction'],
+ ['Mollets debout','4 × 8–12','2 s de pause en bas'],
+ ['Relevé de jambes suspendu','3 × 10–15','Ne balance pas']]);
+SS('pu2','PUSH B','incliné · dips · épaules','u',[
+ ['Développé incliné barre','4 × 6–8','Haut des pecs'],
+ ['Dips lestés','3 × 8–10','Buste penché'],
+ ['Développé machine','3 × 10–12','Près de l’échec'],
+ ['Élévation latérale haltères','4 × 12–20','Léger'],
+ ['Barre au front','3 × 10–12','Seuls les avant-bras bougent']]);
+SS('pl2','PULL B','rowing · tirage · biceps','l',[
+ ['Rowing barre','4 × 6–8','Tire vers le nombril'],
+ ['Tirage vertical prise large','3 × 10–12','Étirement complet'],
+ ['Rowing prise neutre','3 × 10–12','Serre, n’arrache pas'],
+ ['Oiseau haltères','3 × 15–20','Léger et contrôlé'],
+ ['Curl barre EZ','3 × 8–12','Contrôle la descente'],
+ ['Curl pupitre','2 × 10–12','Pas de rebond']]);
+SS('lg2','LEGS B','charnière · hack · fentes','m',[
+ ['Soulevé de terre roumain lourd','4 × 6–8','Même exercice tout le bloc'],
+ ['Hack squat','3 × 8–10','Dominante quadriceps'],
+ ['Fente bulgare','3 × 10–12/jambe','Humiliant. Fais-les quand même'],
+ ['Leg extension','3 × 12–15','Pause en haut'],
+ ['Leg curl allongé','3 × 10–12','Hanches plaquées'],
+ ['Mollets assis','4 × 10–15','Soléaire']]);
+
+SS('hma','MAISON A','goblet · couché · rowing','u',[
+ ['Goblet squat','4 × 8–12','Talons au sol'],
+ ['Développé couché haltères','4 × 8–12','Descends bas'],
+ ['Rowing unilatéral haltère','4 × 8–12','Étire en bas'],
+ ['Soulevé de terre roumain haltères','3 × 10–12','Genoux souples'],
+ ['Élévation latérale haltères','3 × 12–20','Léger'],
+ ['Curl marteau','2 × 10–12','Coudes fixes']]);
+SS('hmb','MAISON B','fentes · épaules · tractions','l',[
+ ['Fente bulgare','3 × 8–12/jambe','Haltères en main quand c’est facile'],
+ ['Développé épaules assis','3 × 8–12','Dos au dossier'],
+ ['Traction supination','4 × max','Pas de balancier'],
+ ['Pont fessier','3 × 12–15','Pause en haut'],
+ ['Pompes','3 × max','Corps gainé'],
+ ['Extension triceps au-dessus de la tête','3 × 10–12','Coudes vers le plafond']]);
+SS('hmc','MAISON C','step-up · incliné · arrière d’épaule','u',[
+ ['Step-up','3 × 10/jambe','La jambe du haut fait tout'],
+ ['Développé incliné haltères','3 × 8–12','Banc à 30°'],
+ ['Rowing buste appuyé','3 × 10–12','Poitrine sur le banc incliné'],
+ ['Soulevé de terre roumain haltères','3 × 10–12','Étirement'],
+ ['Oiseau haltères','3 × 15–20','Léger'],
+ ['Curl incliné haltères','2 × 10–12','Pas de triche'],
+ ['Dead bug','3 × 8/côté','Dos collé au sol']]);
+
+SS('bwa','POIDS DU CORPS A','squat · pompes · rowing','u',[
+ ['Squat au poids du corps','4 × 15–25','Lent en descente'],
+ ['Pompes','4 × max','Poitrine au sol'],
+ ['Rowing inversé','4 × 8–15','Pieds plus loin quand c’est facile'],
+ ['Pont fessier','3 × 15–20','Pause en haut'],
+ ['Planche','3 × 45 s','Fessiers serrés']]);
+SS('bwb','POIDS DU CORPS B','fentes · épaules · tractions','l',[
+ ['Fente arrière','3 × 10–15/jambe','Recule, ne plonge pas'],
+ ['Pompes piquées','3 × 6–12','Hanches hautes'],
+ ['Traction supination','4 × max','Menton au-dessus de la barre'],
+ ['Nordic curl','3 × 4–8','Le plus lent possible'],
+ ['Relevé de jambes suspendu','3 × 8–15','Enroule le bassin']]);
+SS('bwc','POIDS DU CORPS C','fentes · pompes · conditionnement','m',[
+ ['Fentes marchées','3 × 12/jambe','Grand pas'],
+ ['Pompes lestées','3 × 8–12','Sac à dos chargé'],
+ ['Traction supination','3 × max','Descente lente'],
+ ['Mollets unilatéraux','3 × 12–20','Amplitude complète'],
+ ['Dead bug','3 × 8/côté','Lent'],
+ ['Burpee-sprawl','3 × 8','Rythme constant']]);
+
+var PROGRAMS={
+  targeted:{ n:'Haut / Bas + MMA', j:5, d:'Le programme d’origine : deux séances haut, deux séances bas, une journée MMA au milieu.',
+    order:['ua','la','mma','ub','lb'], dow:{1:'ua',2:'la',3:'mma',5:'ub',6:'lb'} },
+  ul4:{ n:'Haut / Bas', j:4, d:'Les mêmes séances Haut et Bas, sans la journée MMA. Idéal si tu combats ailleurs.',
+    order:['ua','la','ub','lb'], dow:{1:'ua',2:'la',4:'ub',5:'lb'} },
+  fb2:{ n:'Full body 2 jours', j:2, d:'Deux grosses séances corps entier. Pour les semaines chargées ou une reprise.',
+    order:['fb2a','fb2b'], dow:{1:'fb2a',4:'fb2b'} },
+  fullbody:{ n:'Full body 3 jours', j:3, d:'Trois séances A, B, C avec un jour de repos entre chaque. Le meilleur rapport temps/résultat.',
+    order:['fba','fbb','fbc'], dow:{1:'fba',3:'fbb',5:'fbc'} },
+  fb4:{ n:'Full body 4 jours', j:4, d:'Deux séances lourdes, deux séances volume. Chaque muscle travaillé 4 fois par semaine.',
+    order:['fb4a','fb4b','fb4c','fb4d'], dow:{1:'fb4a',2:'fb4b',4:'fb4c',5:'fb4d'} },
+  hyb3:{ n:'Full body + MMA', j:3, d:'Full body A lundi, MMA mercredi, Full body B vendredi. Force et combat sans se cramer.',
+    order:['fba','mma','fbb'], dow:{1:'fba',3:'mma',5:'fbb'} },
+  ppl3:{ n:'Push / Pull / Legs', j:3, d:'Poussée, tirage, jambes. Chaque groupe une fois par semaine, séances plus longues.',
+    order:['pu','pl','lg'], dow:{1:'pu',3:'pl',5:'lg'} },
+  ppl6:{ n:'Push / Pull / Legs × 2', j:6, d:'Le PPL deux fois par semaine avec des variantes. Gros volume : seulement si tu récupères bien.',
+    order:['pu','pl','lg','pu2','pl2','lg2'], dow:{1:'pu',2:'pl',3:'lg',4:'pu2',5:'pl2',6:'lg2'} },
+  home3:{ n:'Maison · haltères', j:3, d:'Haltères, un banc et une barre de traction suffisent.',
+    order:['hma','hmb','hmc'], dow:{1:'hma',3:'hmb',5:'hmc'}, equip:'maison' },
+  bw3:{ n:'Poids du corps', j:3, d:'Zéro matériel à part une barre fixe. Pour les vacances ou quand la salle est fermée.',
+    order:['bwa','bwb','bwc'], dow:{1:'bwa',3:'bwb',5:'bwc'}, equip:'pdc' }
+};
+var DAYS_FR=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+
+/* recettes de base avant remplacements, figées une fois */
+var BASE_LIFTS={};
+Object.keys(SESSIONS).forEach(function(k){ BASE_LIFTS[k]=SESSIONS[k].lifts.map(function(L){ return L.slice(); }); });
+
+function curProg(){ return PROGRAMS[S.profile.training]||PROGRAMS.targeted; }
+function equipHas(){ var e=EQUIP_SETS[S.profile.equip]||EQUIP_SETS.salle; return e.has; }
+function exFits(n,has){ var x=EXC[n]; if(!x) return true; has=has||equipHas(); return x.eq.every(function(q){ return has.indexOf(q)>-1; }); }
+function exAlts(n){
+  var x=EXC[n]; if(!x) return [];
+  return EXC_ORDER.filter(function(m){ return m!==n&&EXC[m].p===x.p; });
+}
+function autoSub(n){
+  var has=equipHas(); if(exFits(n,has)) return n;
+  var a=exAlts(n).filter(function(m){ return exFits(m,has); });
+  return a[0]||n;
+}
+function applyProgram(){
+  if(!S.swaps) S.swaps={};
+  Object.keys(BASE_LIFTS).forEach(function(k){
+    SESSIONS[k].lifts=BASE_LIFTS[k].map(function(L,i){
+      var sw=S.swaps[k+'|'+i], n=(sw&&EXC[sw])?sw:autoSub(L[0]);
+      return [n,L[1],n===L[0]?L[2]:(EXC[n]?EXC[n].c[0]:L[2])];
+    });
+  });
+}
+function sessMinutes(k){
+  var m=0; (SESSIONS[k].lifts||[]).forEach(function(L){ m+=parseScheme(L[1]).sets*2.6; });
+  return Math.round((m+8)/5)*5;
+}
+function progOptions(cur){
+  return Object.keys(PROGRAMS).map(function(id){
+    return '<option value="'+id+'"'+(id===cur?' selected':'')+'>'+esc(PROGRAMS[id].n)+' · '+PROGRAMS[id].j+' j</option>';
+  }).join('');
+}
+
+window.setTrainingMode=function(){
+  var P=curProg();
+  ORDER=P.order.slice(); DOW_PLAN=Object.assign({},P.dow);
+  applyProgram();
+  document.body.classList.toggle('prog-alt',S.profile.training!=='targeted'&&!!PROGRAMS[S.profile.training]);
+  document.body.classList.toggle('prog-mma',ORDER.indexOf('mma')>-1);
+};
+nextSession=function(){
+  var dow=new Date().getDay(), doneToday=S.sessions.some(function(s){ return s.date===today(); });
+  if(!doneToday&&DOW_PLAN[dow]) return DOW_PLAN[dow];
+  var last=null; for(var i=S.sessions.length-1;i>=0;i--){ if(ORDER.indexOf(S.sessions[i].key)>-1){ last=S.sessions[i].key; break; } }
+  return last?ORDER[(ORDER.indexOf(last)+1)%ORDER.length]:ORDER[0];
+};
+
+/* ==========================================================================
+   Branchement des animations sur l'existant
+   ========================================================================== */
+demoKey=function(name){ return EXC[name]&&POSES[EXC[name].pose]?name:null; };
+demoSvg=function(key,big){ return rgSvg(key,big); };
+demoBadge=function(name){
+  return demoKey(name)?'<button class="exdemo" data-demo="'+esc(name)+'" aria-label="Voir l’exécution de '+esc(name)+'">'+rgSvg(name)+'</button>':'';
+};
+function eqTxt(x){ return x.eq.length?x.eq.map(function(q){ return EQUIP_LABEL[q]; }).join(' · '):'aucun matériel'; }
+openDemo=function(name){
+  var x=EXC[name]; if(!x||!POSES[x.pose]) return;
+  var def=POSES[x.pose], alts=exAlts(name);
+  sheet(name,
+      '<div class="demo-big">'+rgSvg(name,1)+'</div>'
+    + '<div class="ex11-meta"><span>'+esc(x.m)+'</span><span>'+esc(eqTxt(x))+'</span></div>'
+    + '<div class="card__s" style="margin:10px 0;color:var(--gold);font-family:var(--cond);font-size:15px">'+RG_TEMPO[def.tp||'s'].lab+'</div>'
+    + '<ul class="ex11-cues">'+x.c.map(function(c){ return '<li>'+esc(c)+'</li>'; }).join('')+'</ul>'
+    + (alts.length?'<div class="ex11-h">Variantes</div><div class="chips">'+alts.map(function(a){ return '<button class="chip" data-demo="'+esc(a)+'">'+esc(a)+'</button>'; }).join('')+'</div>':''));
+};
+
+/* ---------- remplacer un exercice ---------- */
+function openSwap(k,i){
+  var base=BASE_LIFTS[k]&&BASE_LIFTS[k][i]; if(!base) return;
+  var cur=SESSIONS[k].lifts[i][0], has=equipHas();
+  var list=[base[0]].concat(exAlts(base[0])).filter(function(v,j,a){ return a.indexOf(v)===j&&EXC[v]; });
+  if(!EXC[base[0]]) list=[base[0]];
+  sheet('Remplacer',
+      '<div class="card__s" style="margin-bottom:12px">'+esc(SESSIONS[k].label)+' · exercice '+(i+1)+'. Même famille de mouvement, même nombre de séries. Tes records restent liés à chaque exercice.</div>'
+    + '<div class="swap11">'+list.map(function(n){
+        var x=EXC[n]||{m:'',eq:[]}, ok=exFits(n,has);
+        return '<button class="swap11__o'+(n===cur?' on':'')+(ok?'':' off')+'" data-pick="'+esc(n)+'">'
+          + (EXC[n]?rgSvg(n):'')+'<span><b>'+esc(n)+(n===base[0]?' <small>· programme</small>':'')+'</b>'
+          + '<small>'+esc(x.m)+' · '+esc(EXC[n]?eqTxt(x):'')+(ok?'':' · matériel manquant')+'</small></span></button>';
+      }).join('')+'</div>');
+  $('#sheetB .swap11').addEventListener('click',function(e){
+    var b=e.target.closest('[data-pick]'); if(!b) return;
+    var n=b.getAttribute('data-pick');
+    if(n===base[0]) delete S.swaps[k+'|'+i]; else S.swaps[k+'|'+i]=n;
+    applyProgram();
+    if(S.live&&S.live.key===k){
+      if(S.live.tg) delete S.live.tg[i];
+      if(S.live.ghosts&&!(n in S.live.ghosts)){ var r=records()[n]; S.live.ghosts[n]=r?{e:r.e,w:r.w,r:r.r,d:r.d}:null; }
+    }
+    save(); closeSheet(); renderSession(); renderPlan(); renderToday();
+    toast(n+' dans '+SESSIONS[k].label);
+  });
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-swap]'); if(!b) return;
+  e.preventDefault(); e.stopPropagation();
+  var p=b.getAttribute('data-swap').split('|'); openSwap(p[0],+p[1]);
+},true);
+function swapBtn(k,i){ return '<button type="button" class="swap11-btn" data-swap="'+k+'|'+i+'" aria-label="Remplacer cet exercice">⇄</button>'; }
+
+var _rs11=renderSession;
+renderSession=function(){
+  _rs11();
+  if(!S.live) return;
+  $$('#sessList > article.ex').forEach(function(a,i){
+    var h=a.querySelector('.ex__h'); if(h&&!h.querySelector('.swap11-btn')) h.insertAdjacentHTML('beforeend',swapBtn(S.live.key,i));
+  });
+};
+
+/* ---------- page Plan : choix du programme et du matériel ---------- */
+var _rp11=renderPlan;
+renderPlan=function(){
+  _rp11();
+  var P=curProg(), plan=$('#vPlan'), box=$('#prog11');
+  if(!box){ box=document.createElement('div'); box.id='prog11'; var intro=plan.querySelector('.rd-intro'); plan.insertBefore(box,intro?intro.nextSibling:plan.firstChild); }
+  var eq=S.profile.equip||'salle';
+  box.innerHTML='<div class="card prog11">'
+    + '<div class="prog11__k">Ton programme</div>'
+    + '<div class="prog11__n">'+esc(P.n)+' <span>'+P.j+' séances / semaine</span></div>'
+    + '<p class="card__s">'+esc(P.d)+'</p>'
+    + '<div class="prog11__week">'+[1,2,3,4,5,6,0].map(function(d){
+        var k=DOW_PLAN[d]; return '<div class="'+(k?'on':'')+'"><b>'+DAYS_FR[d]+'</b><span>'+(k?esc(SESSIONS[k].label.replace(/^FULL BODY( 2J| 4J)? · /,'').replace('POIDS DU CORPS','PDC')):'repos')+'</span></div>'; }).join('')+'</div>'
+    + '<details class="prog11__pick"><summary>Changer de programme</summary><div class="prog11__grid">'
+    +   Object.keys(PROGRAMS).map(function(id){ var x=PROGRAMS[id];
+          return '<button type="button" data-prog="'+id+'" aria-pressed="'+(id===S.profile.training||(!PROGRAMS[S.profile.training]&&id==='targeted'))+'"><b>'+esc(x.n)+'</b><span>'+x.j+' j · '+esc(x.d.split('.')[0])+'</span></button>'; }).join('')
+    + '</div></details>'
+    + '<div class="prog11__k" style="margin-top:14px">Ton matériel</div>'
+    + '<div class="prog11__seg">'+Object.keys(EQUIP_SETS).map(function(id){
+        return '<button type="button" data-equip="'+id+'" aria-pressed="'+(id===eq)+'"><b>'+EQUIP_SETS[id].n+'</b><span>'+EQUIP_SETS[id].d+'</span></button>'; }).join('')+'</div>'
+    + '<div class="card__s" style="margin-top:10px;font-size:12.5px">Un exercice impossible avec ton matériel est remplacé automatiquement par une variante. Touche ⇄ à côté d’un exercice pour choisir toi-même.</div>'
+    + '</div>';
+  /* bouton ⇄ dans la liste des séances */
+  $$('#planSessions details.acc').forEach(function(d,si){
+    var k=ORDER[si]; if(!k) return;
+    $$('.lift',d).forEach(function(r,i){ if(!r.querySelector('.swap11-btn')) r.insertAdjacentHTML('beforeend',swapBtn(k,i)); });
+    var s=d.querySelector('summary'); if(s&&!s.querySelector('.prog11__min')) s.insertAdjacentHTML('beforeend','<span class="prog11__min">≈ '+sessMinutes(k)+' min</span>');
+  });
+};
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-prog]');
+  if(b){
+    var id=b.getAttribute('data-prog'); if(id===S.profile.training) return;
+    if(S.live&&S.live.sets.length&&!confirm('Une séance est en cours. Changer de programme quand même ? Elle reste enregistrable.')) return;
+    S.profile.training=id;
+    if(PROGRAMS[id].equip&&(S.profile.equip||'salle')==='salle') S.profile.equip=PROGRAMS[id].equip;
+    window.setTrainingMode(); save(); renderAll();
+    toast('Programme : '+PROGRAMS[id].n);
+    return;
+  }
+  b=e.target.closest('[data-equip]');
+  if(b){ S.profile.equip=b.getAttribute('data-equip'); window.setTrainingMode(); save(); renderAll(); toast('Matériel : '+EQUIP_SETS[S.profile.equip].n); return; }
+  b=e.target.closest('[data-libg]');
+  if(b){ libGroup=b.getAttribute('data-libg'); v9ExerciseLibrary(); }
+});
+
+/* ---------- bibliothèque d'exercices ---------- */
+var libGroup='all';
+v9ExerciseLibrary=function(){
+  var el=$('#v9ExerciseLibrary'); if(!el) return;
+  var g=EXGROUPS.filter(function(x){ return x[0]===libGroup; })[0], fam=g&&g[1]!=='Tous'&&Array.isArray(g[1])?g[1]:null;
+  var list=EXC_ORDER.filter(function(n){ return !fam||fam.indexOf(EXC[n].p)>-1; }), has=equipHas();
+  el.innerHTML='<div class="chips chips--scroll" style="margin-bottom:12px">'+EXGROUPS.map(function(x){
+      return '<button class="chip" data-libg="'+x[0]+'" aria-pressed="'+(x[0]===libGroup)+'">'+(x[0]==='all'?'Tous':x[0])+'</button>'; }).join('')+'</div>'
+    + '<div class="lib9">'+list.map(function(n){ var x=EXC[n];
+      return '<button class="lib9__ex'+(exFits(n,has)?'':' off')+'" data-demo="'+esc(n)+'">'+rgSvg(n)+'<b>'+esc(n)+'</b><span>'+esc(x.m)+'</span></button>'; }).join('')+'</div>';
+};
+
+/* la liste de choix du programme dans l'accueil */
+(function(){ var s=$('#obTraining'); if(s) s.innerHTML=progOptions(S.profile.training); })();
 window.setTrainingMode();
-var oldPlan=renderPlan;renderPlan=function(){oldPlan();var plan=document.getElementById('vPlan');var box=document.getElementById('fbPlan');if(!box){box=document.createElement('div');box.id='fbPlan';plan.insertBefore(box,plan.querySelector('.rd-intro')?.nextSibling||plan.firstChild)}
- if(S.profile.training==='fullbody'){box.innerHTML='<div class="card"><div class="card__h">Full body · 3 séances par semaine</div><p class="card__s">Lundi A · mercredi B · vendredi C. Laisse au moins une journée de repos entre les séances et alterne A, B, C.</p></div>'+ORDER.map(function(k){var x=SESSIONS[k];return '<button class="fb-plan-session" data-start="'+k+'"><b>'+esc(x.label)+'</b><span>'+esc(x.sub)+' · '+x.lifts.length+' exercices</span><strong>Ouvrir →</strong></button>'}).join('')}
- else box.innerHTML='';};
 renderAll();
 go('Today');
 v7Onboarding();
@@ -4591,7 +5348,88 @@ body.rd-light .topbar{background:#f4f5f8}body.rd-light .tabs{background:#fff;box
 body.rd-light{--bg:#f7f3f3;--surf:#fff;--surf2:#f0e9e9;--surf3:#e7dfe0;--ink:#271d22;--dim:#66575e;--mute:#836f77;--line:rgba(79,26,39,.16);--gold:#98243a;--blue:#98243a;--red:#b4384a;background:#f7f3f3}body.rd-light .topbar{background:#f7f3f3}body.rd-light .tab[aria-selected=true]{background:#98243a}body.rd-light .rd-hero{background:linear-gradient(145deg,#a82d41,#711b2c);color:white}body.rd-light .rd-hero p{color:#f1d3d8}body.rd-light .rd-hero button{background:white;color:#591728}body.rd-light .rd-profile{color:#8b2436;border-color:#d7a4ab}body.rd-light .rd-kicker{color:#98243a}body.rd-light .rd-meter i,body.rd-light .rd-water-actions button:last-child{background:#98243a;color:white}
 </style>
 <style id="training-style">
-body.training-fullbody #vPlan>:not(.rd-intro):not(#fbPlan){display:none!important}.fb-plan-session{width:100%;display:flex;align-items:center;gap:12px;background:var(--surf);color:var(--ink);border:1px solid var(--line);border-radius:15px;padding:16px;margin:10px 0;text-align:left}.fb-plan-session b{min-width:100px}.fb-plan-session span{flex:1;color:var(--dim);font-size:12px}.fb-plan-session strong{color:#dd7885;font-size:12px}@media(max-width:390px){.fb-plan-session{display:block}.fb-plan-session span{display:block;margin:5px 0}}
+.fb-plan-session{width:100%;display:flex;align-items:center;gap:12px;background:var(--surf);color:var(--ink);border:1px solid var(--line);border-radius:15px;padding:16px;margin:10px 0;text-align:left}.fb-plan-session b{min-width:100px}.fb-plan-session span{flex:1;color:var(--dim);font-size:12px}.fb-plan-session strong{color:#dd7885;font-size:12px}@media(max-width:390px){.fb-plan-session{display:block}.fb-plan-session span{display:block;margin:5px 0}}
+</style>
+<style id="v11-fixes">
+/* La barre du haut passe sous l'heure et l'encoche : une couche de style
+   plus ancienne écrasait la marge de sécurité. On la remet, en dernier. */
+.topbar{padding-top:calc(var(--sa-t) + 14px)!important}
+/* L'onglet Séance cachait la barre du haut et la barre d'onglets. */
+body.v10-session .topbar{transform:none;position:sticky}
+body.v10-session .tabs{transform:none;pointer-events:auto}
+body.v10-session #vSession .coachbar{top:calc(var(--sa-t) + 74px)}
+body:not(.prog-mma) .mma-only, body.prog-alt .tg-only{display:none!important}
+
+/* ---------- figures articulées ---------- */
+.rg{overflow:visible}
+.rg line{stroke-linecap:round}
+.rg .n{stroke:var(--ink)}
+.rg .f{stroke:var(--mute);opacity:.75}
+.rg .hd{fill:var(--ink)}
+.rg .fl{stroke:var(--line2,var(--line));stroke-width:2}
+.rg .sc{stroke:var(--surf3);stroke-width:5}
+.rg .sc--pad{stroke-width:9}
+.rg .sc--bar{stroke-width:4;stroke:var(--mute)}
+.rg .scf{fill:var(--surf3)}
+.rg .eq{fill:var(--surf3);stroke:var(--gold);stroke-width:3}
+.rg .eqf{fill:var(--gold)}
+.rg .eqo{fill:none;stroke:var(--gold);stroke-width:3}
+.rg .eqb{fill:var(--gold);opacity:.9}
+.rg .eqs{stroke:var(--gold)}
+.rg .eqf2{fill:var(--gold);opacity:.85}
+.rg .cb{stroke:var(--dim);stroke-dasharray:4 3}
+.rg .bd{stroke:#5fbf86;stroke-dasharray:6 3}
+.rg .tw{stroke:var(--dim)}
+.rg .rp{fill:none;stroke:var(--dim);stroke-width:1.6}
+.rg .gd{stroke:var(--gold);stroke-width:1.2;stroke-dasharray:4 5;opacity:.45}
+.rg .tr{fill:none;stroke:var(--gold);stroke-width:1.6;stroke-dasharray:2 4;opacity:.7}
+.rg .gh line{stroke:var(--ink);opacity:.13}
+.rg .gh circle{fill:var(--ink);opacity:.13}
+.rg .rg-ph{font:700 9px var(--sans);letter-spacing:.08em;fill:var(--gold)}
+.exdemo .rg,.lib9__ex .rg,.swap11__o .rg{background:var(--surf2)}
+.demo-big .rg{max-height:46dvh}
+
+/* ---------- fiche exercice ---------- */
+.ex11-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.ex11-meta span{background:var(--surf2);border:1px solid var(--line);border-radius:99px;padding:5px 10px;font:600 12px var(--sans);color:var(--dim)}
+.ex11-cues{margin:0;padding-left:18px;font-size:14.5px;color:var(--dim);line-height:1.55}
+.ex11-cues li{margin-bottom:6px}
+.ex11-h{font:700 13px var(--sans);color:var(--mute);text-transform:uppercase;letter-spacing:.06em;margin:16px 0 8px}
+
+/* ---------- remplacer un exercice ---------- */
+.swap11-btn{flex:none;width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--surf2);color:var(--ink);font:700 16px var(--sans);display:grid;place-items:center;margin-left:auto;cursor:pointer}
+.lift .swap11-btn{margin-left:8px}
+.swap11{display:grid;gap:8px}
+.swap11__o{display:flex;align-items:center;gap:12px;text-align:left;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:8px;color:var(--ink);cursor:pointer}
+.swap11__o .rg{width:58px;height:58px;flex:none;border-radius:10px}
+.swap11__o b{display:block;font:650 14.5px var(--sans)}
+.swap11__o b small{font-weight:500;color:var(--gold)}
+.swap11__o span small{display:block;font:500 12px var(--sans);color:var(--mute);margin-top:2px}
+.swap11__o.on{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.swap11__o.off{opacity:.55}
+.lib9__ex.off{opacity:.5}
+
+/* ---------- carte programme ---------- */
+.prog11__k{font:700 11.5px var(--sans);color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
+.prog11__n{font:750 21px var(--sans);letter-spacing:-.02em;margin:4px 0 4px}
+.prog11__n span{font:600 12.5px var(--sans);color:var(--gold);margin-left:6px;letter-spacing:0}
+.prog11__week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:12px 0 4px}
+.prog11__week div{background:var(--surf2);border-radius:9px;padding:7px 2px;text-align:center;min-width:0}
+.prog11__week div.on{background:color-mix(in srgb,var(--gold) 22%,var(--surf2))}
+.prog11__week b{display:block;font:700 11px var(--sans)}
+.prog11__week span{display:block;font:600 9px var(--sans);color:var(--mute);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prog11__week div.on span{color:var(--ink)}
+.prog11__pick{margin-top:12px}
+.prog11__pick summary{cursor:pointer;font:650 14px var(--sans);color:var(--gold);padding:6px 0}
+.prog11__grid,.prog11__seg{display:grid;gap:8px;margin-top:8px}
+.prog11__grid{grid-template-columns:1fr 1fr}
+.prog11__seg{grid-template-columns:repeat(3,1fr)}
+.prog11__grid button,.prog11__seg button{text-align:left;background:var(--surf2);border:1px solid var(--line);border-radius:12px;padding:10px;color:var(--ink);cursor:pointer;min-width:0}
+.prog11__grid button[aria-pressed=true],.prog11__seg button[aria-pressed=true]{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.prog11__grid b,.prog11__seg b{display:block;font:650 13.5px var(--sans)}
+.prog11__grid span,.prog11__seg span{display:block;font:500 11.5px var(--sans);color:var(--mute);margin-top:3px;line-height:1.3}
+.prog11__min{margin-left:auto;font:600 12px var(--sans);color:var(--mute);white-space:nowrap;padding-left:8px}
+@media(max-width:390px){.prog11__grid{grid-template-columns:1fr}.prog11__seg{grid-template-columns:1fr}}
 </style>
 <style id="plate-scan">
 .scan-cta{margin:4px 0 12px;text-align:center}
