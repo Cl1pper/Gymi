@@ -1,0 +1,17 @@
+{
+  "name": "GYMI",
+  "short_name": "GYMI",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#191D24",
+  "theme_color": "#191D24",
+  "lang": "fr",
+  "icons": [
+    { "src": "icons/gymi-icon-192-v2.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/gymi-icon-512-v2.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/gymi-icon-maskable-512-v2.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

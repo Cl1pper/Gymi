@@ -3,6 +3,9 @@
 ## Ce que contient le projet
 
     index.html            l'app
+    manifest.webmanifest  nom GYMI et icônes de la web app installée
+    favicon.ico           icône de l'onglet (16, 32, 48 px)
+    icons/                icônes GYMI (favicon, iPhone, Android, maskable)
     sw.js                 cache hors ligne
     vercel.json           relais Open Food Facts (/off, /offs) + délai de la fonction photo
     package.json          configuration du projet (aucune dépendance à installer)

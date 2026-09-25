@@ -11,7 +11,7 @@
    La version précédente était cache-d'abord pour tout, ce qui bloquait
    les mises à jour pendant un ou deux lancements. Corrigé ici.
    ========================================================================== */
-var CACHE = 'luka-gym-v16-gemini';
+var CACHE = 'gymi-v17-logo';
 
 self.addEventListener('install', function(){
   self.skipWaiting();
